@@ -1,0 +1,2556 @@
+
+
+
+
+
+
+
+
+      Future Motors Pvt. Ltd
+      Process Manual
+      Agile Solutions Pvt. Ltd
+                               19[th] June, 2026
+                                                                         Manual
+
+
+
+      Future Motors Pvt. Ltd
+      Process Manual
+      Agile Solutions Pvt. Ltd
+                               19[th] June, 2026
+                                                                         Manual
+
+
+Table of Contents
+General System Information	5
+[GS-01]  -  [General System Information]	5
+1  -  Brower	5
+2  -  Mobile Device	6
+3  -  System Login	6
+Business Central User Interface	6
+[GS-02]  -  [Business Central User Interface]	6
+1  -  The Role Center	6
+2  -  Change Company	7
+3  -  User Personalization	8
+4  -  Sorting, searching, and filtering data in lists	10
+5  -  Filter Criteria and Operators	12
+6  -  Keyboard Shortcuts	12
+7  -  Bookmark a page or report on your role center	15
+8  -  Export Data to Excel	15
+Finance Module	16
+[FM-01]  -  [Master Card]	16
+1  -  Create New G/L Account	16
+2  -  Create New Bank Account	17
+3  -  Create New Vendor	18
+4  -  Create Dimensions (Branch, Product Segment)	19
+5  -  Create LC Card	20
+6  -  Create BG Card	21
+7  -  Create TT Card	23
+8  -  Create TDS Group	23
+[FM-02]  -  [Journals]	24
+1  -  General Journal	24
+2  -  Cash Receipt Journal	27
+3  -  Payment Journal	30
+4  -  History	33
+5  -  Reports	37
+[FM-03]  -  [G/L Budget]	37
+1  -  Budget Window	38
+2  -  Budget Entry	39
+3  -  Export Budget to Excel	40
+4  -  Import Budget from Excel	42
+5  -  Copy Budget	43
+[FM-04]  -  [Fixed Asset]	44
+1  -  Create New Fixed Asset Card	45
+2  -  Purchase of Fixed Asset	46
+3  -  Receipt and Invoice Purchase Order	47
+3  -  FA Transfer	47
+4  -  Calculate Depreciation	48
+5  -  History & Reports	49
+Procurement Module	51
+[PM-01]  -  [Vehicle Purchase]	51
+1  -  Vehicle Purchase	51
+2  -  Vehicle Receipt	53
+3  -  Print Vehicle Receipt	54
+4  -  Vehicle Invoice	55
+5  -  Print Vehicle Invoice	55
+[PM-02]  -  [Custom Charges in Vehicle Purchase]	58
+1 -  Purchase Invoice	58
+2 -  Item Charge Assignment	59
+3 -  Post and Print Purchase Invoice	61
+[PM-03]  -  [Vehicle Purchase Return]	62
+1  -  Return Purchase Vehicle	62
+2  -  Print Return Purchase Vehicles	63
+[PM-04]  -  [Local Parts Purchase]	64
+1 -  Local Parts Purchase	64
+2  -  Local Parts Receipt	65
+3  -  Print Spare parts Receipt	66
+4  -  Spare Parts Invoice	67
+5  -  Print Spare Parts Invoice	68
+[PM-05]  -  [Local Parts Purchase Return]	69
+1  -  Return Local Spare Parts	69
+2  -  Print the return spare parts shipment	69
+Print Return Local Spare Parts	70
+[PM-06]  -  [Import Parts Purchase]	75
+1  -  Parts Order Plan	75
+Step 1  -  Process Order Plan Items	77
+Step 2  -  View Order Plan Items	77
+Step 3  -  Create Order Plan Lines	78
+Step 4  -  Fill Order Plan Lines	79
+Step 5  -  Print PO Calculation	79
+Step 6  -  Create Purchase Order	80
+2  -  Import Parts Receipt	81
+3  -  Print Spare parts Receipt	82
+4  -  Spare Parts Invoice	83
+5  -  Print Spare Parts Invoice	84
+[PM-07]  -  [Custom Charges in Import Parts Purchase]	86
+1 -  Purchase Invoice	86
+2 -  Item Charge Assignment	87
+3 -  Post and Print Purchase Invoice	89
+[PM-08]  -  [Import Spare Purchase Return]	90
+1  -  Return Purchase Order	90
+2  -  Print Parts Purchase Return	91
+[PM-09]  -  [History and Reports]	92
+1 -  History	92
+2 -  Reports	92
+Sales Module	93
+[SM-01]  -  [Vehicle Sales]	93
+1  -  Vehicle Sales Quote	97
+2 -  Reports	111
+PDC Module	112
+[PDC-01]- PDC Journal	112
+1-Create PDC journal	112
+Step-1 Record the Cheque detail	112
+Step-2 Process PDC Cheque[Cheque deposit, Bounce, cancel]	112
+Vehicle Recovery Module	114
+[VR-01] - Vehicle Recovery	114
+1 Vehicle recovery memo line	114
+2 Vehicle recovery sheet	115
+3 Create Cash receipt Journal from vehicle recovery Sheet	116
+[SM-03] Vehicle Delivery	116
+1 Delivery Chalan	116
+2 Delivery Challan Details	118
+3 Allotment Letter	119
+1. Service booking	121
+Service Module	152
+Step-2 Create  Inventory Checklist or PDI inspection	155
+OR In case of PDI	156
+Step-3 Customer Complaints	157
+Step-4 Print Job card	157
+Step-5 Create Service line	158
+Step-6 Assign Technician to Service Line	159
+Step-7 Create Requisition and Transfer Items (spare parts) to Service Location	160
+For External Service	162
+Step-8 Finish Service order	164
+Step-9 Process Service Billing	165
+Step-10 Print service invoice and Gatepass	167
+Instant Servic Feedback and After service Feedback	171
+Posted satisfaction feedback/Daily complaint followup	172
+
+
+General System Information
+[GS-01]  -  [General System Information]
+Before you access Business Central, we recommend that you verify that your computer or mobile device meets the minimum requirements.
+1  -  Brower
+Chrome for Windows and Firefox for Windows: Business Central is designed to work with the current version of these desktop browsers.
+Safari: Business Central is designed to work with the current version of Safari on OSX.
+Microsoft Edge: Business Central is designed to work with thecurrentversion of Microsoft Edge.
+Internet Explorer: Business Central is designed to work with Internet Explorer 11 (build 11.0.9600.17239) for Windows 10 (32-bitand 64-bitversions). Werecommend thatyou upgradeto thelatestversion of Internet Explorer supported for your version of Windows.
+2  -  Mobile Device
+Windows: Business Central for Windows can be installed on devices with at least 1GB of RAM and Windows 10 Home, Pro, Enterprise, or Education (32-bitand 64-biteditions).
+iOS: Business Central for iPad and iPhonerequires iOS 10.0 or later.
+Android: Business Central for Android tabletand Android phonecan beinstalled on devices with at least 1GB of RAM and Android 6.0 or higher.
+Device size: Business Central is supported on smartphones with a minimum screen size of 4" and tablets with a minimum screen size of 7".
+
+3  -  System Login
+Two-way authentication is enabled in BC Cloud. Enter URL, username and password as provided.
+URL: https://businesscentral.dynamics.com/2f0ba70f-645c-4fb9-971e-cd3c062f7de5/Production?
+Username: training@thee-go.com
+Password:  training@123
+
+Note: URL, Username and password will be provided by IT department.
+
+
+
+
+
+
+Business Central User Interface
+[GS-02]  -  [Business Central User Interface]
+1  -  The Role Center
+The Role Center page is based on a role-centric design to give user fast access to the business process and intelligence tools that you need to do your job. Role center are: Accountant, Purchase Manager, Sales Manager, Service Manager, Warehouse Manager, etc.
+
+To change Role Center:
+ Go to Settings icon in the top right corner
+ Choosing My Settings
+ Change the Role Center from Role
+
+2  -  Change Company
+Users can switch to multiple companies if permission is granted.
+ Click CTRL+O and select company and click Switch.
+
+      OR
+ Go to setting and change company
+
+3  -  User Personalization
+You can make various adjustments, such as move or hide fields, columns, actions, and entire parts, and add new fields.
+ Click Setting and click Personalization.
+
+
+
+i) Customize Role Center
+
+
+
+ii) Customize Page
+
+Choose the element, and then choose either Move, Remove, Hide, Show, Show under "Show more", Show when collapsed, Show always, Set/Clear Freeze Pane, or Include/Exclude from Quick Entry, depending on the type and state of the UI element.
+To add a field, choose the + Field action. From the Add Field to Page pane, drag and drop a field into the desired position on the page.
+When you finish changing the layout of one or more pages, choose the Done button on the Personalizing banner.
+
+
+
+
+4  -  Sorting, searching, and filtering data in lists
+
+i) Sorting
+
+
+
+
+
+
+
+
+
+
+
+
+To sort a list, you can either:
+ Choose a column heading text to toggle between ascending and descending order, or
+ Choose the drop-down arrow into column heading, then choose the Ascending or Descending action.
+
+ii) Searching
+To search, select the Search icon or F3 on your keyboard. In the box, type the text that you're looking for. You can enter letters, numbers, and other symbols.
+
+
+
+iii) Filtering
+Most of the time filters are hidden in pages. To show the filter, click on the filter icon. A filter pane is divided into three sections: Views, Filter list by, and Filter totals by:
+ Views
+Views are saved list that are preconfigured with filters. You can define and save as many views as you want per list.
+ Filter list by
+This section is where you add filters on specific fields to reduce the number of displayed records. To add a filter, choose the + Filter action. Then, type the name of the field that you want to filter the list by or pick a field from the drop-down list.
+
+ Filter totals by
+Some lists that display calculated fields, such as amounts and quantities, include the Filter totals by section where you can adjust various dimensions that influence calculations. To add a filter, choose the + Filter action. Then, type the name of the field that you want to filter the list by or pick a field from the drop-down list.
+
+
+5  -  Filter Criteria and Operators
+When you enter criteria, you can use all the numbers and letters that you normally use in the field. But there are also a set of special symbols that you can use as operators to further filter the results.
+Filter Name
+Sample Expression
+Records Displayed
+Date range
+01/01/2024..01/31/2024
+Date between 1[st] Jan 2024 to 31[st] Jan 2024.
+Date range
+..01/31/2024
+Up to 31[st] Jan 2024.
+Number range
+1000..2500
+Numbers 1000 through 2500.
+Number range
+..2500
+Up to and including 2500.
+Either/OR
+1000|2000
+Numbers with 1000 or 2000.
+Not equal to
+<>0
+All number except 0.
+Greater than
+>2500
+Number greater than 2500.
+Greater or equal to
+>=2500
+Numbers greater than or equal to 2500.
+Less than
+<2500
+Number less than 2500.
+Less or equal to
+<=2500
+Numbers less than or equal to 2500.
+And
+>1000&<2500
+Numbers greater than 1000 and less than 2500.
+Exact match
+`man'
+Text that matches man exactly and is case-sensitive.
+Empty
+`'
+Text that is empty.
+Indefinite number of unknown character
+*Co
+*Co*
+Text that ends with Co and is case-sensitive.
+Text that contains Co and is case-sensitive.
+Case Insensitive
+@man*
+Text that starts with man and is case insensitive.
+
+6  -  Keyboard Shortcuts
+i) General
+
+ii) Shortcut in Card and Documents
+
+iii) Shortcut for Date
+
+
+7  -  Bookmark a page or report on your role center
+Using the bookmark icon, you can add an action that opens a page or report from the navigation menu of your role center. The bookmark icon is shown in the top-right corner of a page. If a bookmark already exists for the page, then the icon is dark. Click on bookmark to remove from role center.
+
+
+ To see bookmark
+
+
+
+8  -  Export Data to Excel
+You can open data in Excel from any journal, list, or worksheet. To export data:
+ Open the page that you want to export
+ Click share button and click open in excel
+
+
+
+Finance Module
+[FM-01]  -  [Master Card]
+1  -  Create New G/L Account
+ Click Chart of Account in role center of search it
+ List will open
+
+ Click New and fill the details
+
+
+Manually enter no. Chart of Account will be sort according to No.
+Give G/L name in name field
+Select whether account in balance sheet item or income statement item
+Select account category and sub-category
+
+
+
+
+
+
+
+ Click Indent Chart of Account, once account is created.
+
+
+
+2  -  Create New Bank Account
+ Click Bank Account in role center of search it
+ New page will open
+
+ Click New
+
+Enter name, address, phone no, contact person, account type, account no, posting group in general tab
+Enter details in communication tab
+
+3  -  Create New Vendor
+ Click Vendor in role center of search it
+ New page will open
+
+ Click New
+ Choose Template
+
+ Click OK
+
+Enter name, address, phone no, contact person, VAT/PAN No in General tab.
+Enter Address, Invoicing and payment details in each tab.
+
+
+
+4  -  Create Dimensions (Branch, Product Segment)
+ Search Dimensions in global search
+ Dimension list will be shown
+
+Add product segment
+ Click or select product segment line
+ Click Dimension > Dimension Value
+
+ Add product segment in new line
+
+5  -  Create LC Card
+ Search LC in global search
+ New page will open
+
+
+ Click New and fill details
+
+
+Enter Transaction Type, Type, LC Type, No., Issuing Bank, Receiving Bank, Tolerance %, Date of Issue, Expiry Date, Currency code in the general tab
+Enter LC Value in the Invoicing Tab
+
+
+
+ Click Release button once LC is finalized. Only released LC is seen in purchase or sales document.
+
+6  -  Create BG Card
+ Search BG in global search
+ New page will open
+
+
+ Click New and fill details
+
+
+
+Enter Transaction Type, Type, No., Issuing Bank, Receiving Bank, Date of Issue, Expiry Date, Currency code in the general tab
+Enter BG Value in the Invoicing Tab
+
+
+
+
+ Click Release button once BG is finalized. Only released BG is seen in purchase or sales document.
+
+7  -  Create TT Card
+ Search TT in global search
+ New page will open
+ Click New and fill details
+
+
+
+
+8  -  Create TDS Group
+ Search TDS Group in global search
+ List will open
+ Add TDS Type,  Code, TDS Description, TDS % and G/L Account
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[FM-02]  -  [Journals]
+1  -  General Journal
+Step 1: Click Journal  General Journal
+Alternatively, type General Journal in search icon and select the same among the displayed list of options
+
+ Click on Batch name
+
+
+ Enter voucher details:
+
+Step 2: Enter voucher
+SN
+Description
+Remarks
+1
+Posting Date
+Enter the voucher English date. If not, the Nepali date entered is automatically converted to English here
+2
+Nepali Date
+Enter the voucher Nepali date. If not, the English date entered is automatically converted to Nepali here
+2
+Document No.
+It is auto generated
+3
+Account Type
+Choose either:
+ G/L Account
+ Customer
+ Vendor
+ Bank Account
+ Fixed Asset
+ Employee
+ Loan
+4
+Account No
+Choose account according to account type.
+5
+Account Name
+It will be auto populated from prospect card
+6
+Transaction Type
+It is auto populated for Vendor and Customer. In case of Employee the Transaction Type must be selected (E.g., Advance, Loan)
+7
+Description
+Amend the voucher description which is auto populated with Account Name if any additional information must be entered
+8
+Branch Code
+Choose the branch location
+9
+Debit Amount
+Enter debit amount
+10
+Credit Amount
+Enter credit amount
+11
+LC/BG/TT
+Choose Lc/BG/TT if you need to tag in ledger
+12
+Narration
+Enter the Narration
+ In case of VAT and TDS, fill additional field in general journal.
+SN
+Description
+Remarks
+13
+Bill/Cheque No.
+Enter the bill number
+14
+Gen. Posting Type
+Select whether its Purchase VAT, Sales VAT or Settlement
+15
+Gen. Bus. Posting Group
+Select the type of Purchase or Sales (For E.g.: Custom Purchase, Local Purchase, Import Purchase and Local Sales)
+16
+VAT Prod. Posting Group
+Select the applicable VAT rate (VAT13%)
+17
+TDS Group
+Select the TDS Group
+18
+TDS %
+Select the applicable TDS rate
+
+Step 3: Preview Posting
+ Click Post/Print and then Preview Posting to confirm that there is no error in the entry being made
+
+
+Step 4: Post Voucher
+-       If no error is displayed, the entry is ready to post. Click Post for posting the entry or Post and Print for posting as well as printing the voucher
+
+
+
+Step 5: Print General Journal
+ You can click Post and Print while posting journal
+                  OR
+ Search General Ledger Entries in search icon and select the same among the displayed list of               options
+ Select the journal line
+ Click Report and Click Print
+
+
+
+
+
+
+
+2  -  Cash Receipt Journal
+Step 1: Click Journal  Cash Receipt Journal
+Alternatively, type Cash Receipt Journal in search icon and select the same among the displayed list of options
+
+ Click on Batch name
+w
+ Enter voucher details:
+
+SN
+Description
+Remarks
+1
+Posting Date
+Enter the voucher English date. If not, the Nepali date entered is automatically converted to English here
+2
+Nepali Date
+Enter the voucher Nepali date. If not, the English date entered is automatically converted to Nepali here
+2
+Document No.
+It is auto generated
+3
+Account Type
+Choose either:
+ G/L Account
+ Customer
+ Vendor
+ Bank Account
+ Fixed Asset
+ Employee
+ Loan
+4
+Account No
+Choose account according to account type.
+5
+Account Name
+It will be auto populated from prospect card
+6
+Check/Bill No
+Enter Check No.
+7
+Description
+Amend the voucher description which is auto populated with Account Name if any additional information must be entered
+8
+Branch Code
+Choose the branch location
+9
+Debit Amount
+Enter debit amount
+10
+Credit Amount
+Enter credit amount
+11
+Narration
+Enter the Narration
+12
+LC/BG/TT
+Choose Lc/BG/TT if you need to tag in ledger
+
+
+
+Step 4: Post Voucher
+-       If no error is displayed, the entry is ready to post. Click Post for posting the entry or Post and Print for posting as well as printing the voucher
+
+
+
+Step 5: Print Cash Receipt Journal
+ You can click Post and Print while posting journal
+                  OR
+ Search General Ledger Entries in search icon and select the same among the displayed list of               options
+ Select the journal line
+ Click Report and Click Print
+
+
+
+
+
+
+
+3  -  Payment Journal
+Step 1: Click Journal  Payment Journal
+Alternatively, type Payment Journal in search icon and select the same among the displayed list of options
+
+ Click on Batch name
+
+ Enter voucher details:
+
+SN
+Description
+Remarks
+1
+Posting Date
+Enter the voucher English date. If not, the Nepali date entered is automatically converted to English here
+2
+Nepali Date
+Enter the voucher Nepali date. If not, the English date entered is automatically converted to Nepali here
+3
+Document No.
+It is auto generated
+4
+Account Type
+Choose either:
+ G/L Account
+ Customer
+ Vendor
+ Bank Account
+ Fixed Asset
+ Employee
+ Loan
+5
+Account No
+Choose account according to account type.
+6
+Account Name
+It will be auto populated from prospect card
+7
+Check/Bill No
+Enter Check No. or bill no
+8
+Description
+Amend the voucher description which is auto populated with Account Name if any additional information must be entered
+9
+Branch Code
+Choose the branch location
+10
+Debit Amount
+Enter debit amount
+11
+Credit Amount
+Enter credit amount
+12
+Narration
+Enter the Narration
+12
+LC/BG/TT
+Choose Lc/BG/TT if you need to tag in ledger
+
+ In case of TDS, fill additional field in general journal.
+SN
+Description
+Remarks
+17
+TDS Group
+Select the TDS Group
+18
+TDS %
+Select the applicable TDS rate
+
+Step 4: Post Voucher
+-       If no error is displayed, the entry is ready to post. Click Post for posting the entry or Post and Print for posting as well as printing the voucher
+
+
+
+Step 5: Print Payment Journal
+ You can click Post and Print while posting journal
+                  OR
+ Search General Ledger Entries in search icon and select the same among the displayed list of               options
+ Select the journal line
+ Click Report and Click Print
+
+
+
+
+
+4  -  History
+Step 1: View G/L Ledger
+ Click Posted Document > General ledger entries
+
+
+
+Step 2: View Bank Ledger
+ Click Posted Document > Bank ledger entries
+
+
+
+
+
+
+Step 3: View Vendor Ledger
+ Click Posted Document > Vendor ledger entries
+
+
+
+Step 4: View Customer Ledger
+ Click Posted Document > Customer ledger entries
+
+
+
+Step 5: View Loan Ledger
+ Click Posted Document > Loan ledger entries
+
+
+Step 6: View VAT Ledger
+ Search  VAT Entries
+
+
+
+Step 7: View TDS Ledger
+ Search  TDS Entries
+
+
+5  -  Reports
+ Trial balance
+ Balance Sheet
+ Income Statement
+ Vendor Report
+ Customer Report
+ Bank Report
+ Loan Report
+ LC/BG/TT Report
+ Purchase VAT Book
+ Sales VAT Book
+ TDS Report
+ Aged Account Payable (Vendor Aging)
+ Aged Account Receivable (Customer Aging)
+ Dimension wise report (Analysis report)
+
+
+[FM-03]  -  [G/L Budget]
+A budget is a planning, controlling and reporting system that estimates future costs and revenues based on projected operating levels. Budgets can be created by combining G/L account and dimensions.
+1  -  Budget Window
+Step 1: Click Budget  G/L Budget
+Alternatively, type G/L Budget in search icon and select the same among the displayed list of options
+
+ Click New for creating new budget
+
+Enter Name, proper description and dimensions. You can add up to 4 dimensions besides global dimensions.
+
+
+ Click Edit Budget
+
+
+
+   Budget entry part is divided into 3 parts. General, Budget Matrix and Filter.
+General Tab: It is used to change budget rows, column and date view type.
+Budget Matrix: It is used to enter budget amount by date, G/L account and dimension.
+Filter Tab: It is used for filtering budget line by date, G/L account and dimension.
+
+
+
+
+
+
+2  -  Budget Entry
+ Enter date filter, G/L account filter and dimension filter in filter tab.
+ In budget matrix page, select G/L account and click budget amount. A new page will open.
+ Click new and enter dimensions and amount. For different dimension enter separate line.
+
+ The summary will be shown on the Budget Matrix page.
+
+
+3  -  Export Budget to Excel
+You can export data on budget pages to Microsoft Excel for further processing or analysis and then import budget data back in Business Central.
+Step 1: Open G/L Budget window > Click Export to Excel
+
+SN
+Description
+Remarks
+1
+Start Date
+Enter budget start date.
+2
+No. of period
+Enter no. of column in excel.
+3
+Period Length
+Enter Period Length, eg: D=day, M= Month, Q=Quarter, Y=Year
+4
+Column Dimension
+Enter dimension to be include in budget
+
+
+ Click OK. Budget will open in excel.
+ Update budget in excel and save file.
+
+4  -  Import Budget from Excel
+Step 1: Open G/L Budget window > Click Import from Excel
+
+SN
+Description
+Remarks
+1
+Budget Name
+This will come automatically.
+2
+Option
+Add entries: This will add all the entries as per filter.
+Replace entries: This will replace all the entries as per filter.
+3
+Description
+Enter budget narration
+
+
+ Click OK.
+ Choose your file
+ Import data
+
+
+
+
+5  -  Copy Budget
+Business Central allows you to copy an existing budget from year to year. You can create a copy with the exact amount or use the adjusted factor to increase/decrease the amount.
+Step 1: Create New budget
+
+ Click Edit Budget > Copy Budget
+
+
+SN
+Description
+Remarks
+
+Copy From
+The Copy from section is the existing budget name, G/L Account numbers, date range, and dimensions.
+
+Source
+Choose G/L budget entry
+
+Budget Name
+Enter budget name from your you want budget to be copied.
+
+G/L Account No
+Enter G/L account filter.
+
+Date
+Enter budget date filter to be included.
+
+Closing Entries
+Choose whether you want to include closed entries or not.
+
+Dimensions
+Choose dimension that need to be copied.
+
+Copy To
+The Copy to section is the new budget name and G/L Account numbers.
+
+Budget Name
+Enter copy to budget name
+
+G/L Account No
+Enter G/L account filter.
+
+Apply
+The Apply section is where you can determine if the budget is copied at exact amount or increased/decreased by a percentage.
+
+Adjustment Factor
+If you want to copy same amount enter 1. If you want to increase your budget by 10%, you will enter 1.10. If you wanted to decrease your budget by 5% the adjustment factor would be 0.95
+
+Rounding Method
+Specify how the new budget entries are rounded.
+
+Date Change Formula
+Enter a formula that calculates the date for the new entries based on the entries being copied. For example, enter 1M for the next month.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[FM-04]  -  [Fixed Asset]
+The fixed assets functionality in Business Central provides an overview of your fixed assets and helps ensure that their depreciation is correct. It also helps you track maintenance costs, manage insurance policies, post fixed asset transactions, and generate various reports and statistics.
+1  -  Create New Fixed Asset Card
+ Search Fixed Asset
+ List will open
+
+ Click New
+
+
+General Tab: Enter FA no, Description, Class, Sub-Class, FA location, serial and Condition
+Depreciation Book: Choose Depreciation book, posting group, depreciation method, depreciation start date, end date, declining balance as per depreciation method.
+Vehicle Information: If Fixed asset is vehicle, enter model, VIN, Registration no., manufacturing date.
+Land Information: If Fixed asset is land, enter area and kitta no.
+Maintenance: Enter maintenance details in this tab.
+
+
+
+
+
+
+
+2  -  Purchase of Fixed Asset
+ Open Purchase order
+ Click New
+
+General Tab: Enter Vendor Name, order date, posting date, invoice no, LC, narration.
+Line Tab: Choose Fixed asset, quantity, location, amount.
+
+
+
+
+
+
+
+3  -  Receipt and Invoice Purchase Order
+ Open Purchase order
+ Click Post
+ Click OK
+
+
+
+3  -  FA Transfer
+ Open Fixed Asset and Click FA Transfer
+
+ Click New
+ Fill Details (Custodian Name, ownership date, branch, department)
+ Click Post. It will change employee name in fixed asset Card
+
+4  -  Calculate Depreciation
+ Search Calculate Depreciation
+ Enter Details (Depreciation book, Date, doc. No, description, filters)
+
+ Click OK
+
+Depreciation will be calculated and transferred to FA G/L Journal. Verify and post it.
+You can modify depreciation value once it is calculated.
+
+
+
+
+
+
+
+
+5  -  History & Reports
+History
+ Search for FA Ledger Entries
+
+Reports
+ Search FA book value
+ Fill details and run report
+
+
+
+Procurement Module
+[PM-01]  -  [Vehicle Purchase]
+1  -  Vehicle Purchase
+Vehicle purchase Quote
+ Search Vehicle purchase Quote
+ Click on New
+
+
+General
+Fill Vendor no, Vendor details, Order date, document date, Requested receipt date
+Purchase Line
+Choose Model version, variant, Qty and cost.
+ Click on Make order
+Purchase order
+ Search for Vehicle Purchase Order
+ List will open. Click New for new purchase or select Purchase order made from purchase Quote
+   Open LC if needed.
+ Search LC/BG/DO Detail
+ General
+Fill up Transaction Type, Type, LC/BG/DO,LC type, Description, Issued to/from, issuing Bank, receiving bank, Tolerance percentage, date of issue, expiry date, currency code and other detail as per necessary.
+Invoice
+LC value
+
+
+
+
+
+
+   Purchase consignment
+ Search Purchase consignment
+ Click on it.
+   Click on New
+
+
+   Fill up NO.-Auto, Commercial invoice No., vendor code, pragyapanpatra Purchase consignment date
+
+
+
+General
+Fill PO no, Vendor details, Order date, document date, PI Date, Posting date, Consignment No., LC No., Pragyapanpatra and Invoice No.
+Purchase Line
+Choose Model version, variant, make year, Engine/Motor No, Battery No, Chasis/VIN No, Qty and cost.
+
+
+
+
+
+
+
+2  -  Vehicle Receipt
+ Search Vehicle Purchase Order
+ From the list, open PO
+ Click Post > Receive > OK
+
+Update in General tab
+Update Posting date, Consignment No., LC No., Pragyapanpatra
+Update in Purchase Line
+For partial receipt, change in Qty. to Receive field. Put 0 if you do not want to receive that line.
+
+
+
+
+
+
+
+
+3  -  Print Vehicle Receipt
+ Search Posted Purchase Receipt
+ From the list, select the line
+ Print the document.
+
+
+
+
+
+
+4  -  Vehicle Invoice
+ Search Vehicle Purchase Order
+ From the list, open PO
+ Click Post > Invoice > OK
+
+Update in General tab
+Update Posting date and Vendor Invoice No.
+Update in Purchase Line
+Update amount and discount. For partial invoice, change in Qty. to Invoice field. Put 0 if you do not want to invoice that line.
+
+
+
+
+5  -  Print Vehicle Invoice
+ Search Posted Purchase Invoice
+ From the list, select the line
+ Print the document.
+
+
+ Create Logistic > yes > OK
+
+
+
+ Search Logistic Details
+ Click on It.
+
+ You can update details in list or card.
+ Click Edit List to update in list or Click Edit to update in card.
+
+
+
+      Fill the detail general, vehicle details, Custom point, Insurance and transit, Insurance claim, sales details
+
+
+[PM-02]  -  [Custom Charges in Vehicle Purchase]
+1 -  Purchase Invoice
+ Search Purchase invoice
+ Create New Document
+                                    General
+Fill PO no, Vendor details, Order date, document date, PI Date, Posting date, Consignment No., LC No., Pragyapanpatra and Invoice No.
+Purchase Line
+Choose charge item, qty and amount. Each item charge must be assigned to vehicles.
+
+
+
+
+
+
+
+2 -  Item Charge Assignment
+ To assign item charge, select the line.
+ Click Line > Related Information > Item Charge Assignment
+
+ New window will open. Click get receipt line
+
+ Search by Pragyapanpatra. Select all the lines that need to be assigned.
+ Click OK
+
+ Click Suggest Item charge assignment
+ Click By amount
+ Click OK
+
+ Close this page.
+ Repeat this process for all charge item lines.
+ After assigning all item charges, Post the document
+
+3 -  Post and Print Purchase Invoice
+ Click Post > Invoice > OK
+ Go to Posted Purchase Invoice and Print the document.
+
+
+
+[PM-03]  -  [Vehicle Purchase Return]
+1  -  Return Purchase Vehicle
+ Search for Vehicle Purchase Return Order
+ Click New. New document will open
+ Click in No. field. New No. will generate
+ Click Copy Document
+
+New window will open
+ Choose Document Type and Document No.
+ Select Include Header
+ Click OK
+
+ Return Document will be opened.
+ Enter Vendor Credit Memo, Return Reason Code. Post the document.
+
+ Click on post > Ship & Invoice
+
+
+
+
+2  -  Print Return Purchase Vehicles
+ Search Posted Purchase credit memo
+ Select document
+ Click Print
+
+
+[PM-04]  -  [Local Parts Purchase]
+1 -  Local Parts Purchase
+ Search Spare Parts Purchase Order
+ List will open. Click New for new purchase
+
+
+
+
+General
+Fill PO no, Vendor details, Order date, document date, PI Date, Posting date and Invoice No.
+Purchase Line
+Choose Item No, Qty and cost.
+
+
+
+
+
+
+
+2  -  Local Parts Receipt
+ Search Parts Purchase Order
+ From the list, open PO
+ Click Post > Receive > OK
+
+Update in General tab
+Update Posting date
+Update in Purchase Line
+For partial receipt, change in Qty. to Receive field. Put 0 if you do not want to receive that line.
+
+
+
+3  -  Print Spare parts Receipt
+ Search Posted Purchase Receipt
+ From the list, select the line
+ Print the document.
+
+
+
+
+4  -  Spare Parts Invoice
+ Search Spare Parts Purchase Order
+ From the list, open PO
+ Click Post > Invoice > OK
+
+Update in General tab
+Update Posting date and Vendor Invoice No.
+Update in Purchase Line
+Update amount and discount. For partial invoice, change in Qty. to Invoice field. Put 0 if you do not want to invoice that line.
+
+
+
+
+
+
+
+5  -  Print Spare Parts Invoice
+ Search Posted Purchase Invoice
+ From the list, select the line
+ Click on print.Print the document.
+
+
+[PM-05]  -  [Local Parts Purchase Return]
+1  -  Return Local Spare Parts
+ Search spare parts purchase return order
+ Click New
+ Select Home > Copy Document
+ Select Document & Document No.
+ Check Include Header
+ Click OK
+
+
+All the details in header and lines will be copied from posted invoice.
+ Enter Vendor Credit Memo, Return Reason Code.
+ Post the document.
+
+2  -  Print the return spare parts shipment
+ Search Posted purchase return shipment
+ Click on print
+
+
+ Goto spare parts purchase return order
+ Post and invoice
+
+
+
+Print Return Local Spare Parts
+ Search Posted Purchase Credit Memo
+ Select document
+ Click Print
+
+Payment Received from Vendor
+ Search cash receipt journal
+ Fill posting date ,vendor
+
+
+ Click on Apply entries>  set-applied-to>ok
+
+
+
+Document will be copied.
+
+ Enter the receipt bank account no and post it
+
+
+
+[PM-06]  -  [Import Parts Purchase]
+1  -  Parts Order Plan
+ Search Parts Order Plan
+ List will open. Click New for new order plan
+
+General tab
+No: Enter to generate new parts order plan no.
+Plan Type: Choose Purchase
+Plan Scope: Choose Business Unit. If you choose location, it is used to calculate as per assigned location.
+Order Type: For Normal plan choose SOP. For emergency plan, Choose VOR
+Copy Suggested qty. to planned Qty: Check if you want suggested qty to be copied to planned qty.
+Customer PO No: Fill the Customer PO number.
+Vendor No: Choose a Vendor for whom you want to create an order plan.
+Currency Code: It will be copied from the vendor currency code.
+
+Note: Year, Month, Location, Average Calculation will be populated automatically.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Step 1  -  Process Order Plan Items
+
+ Click Process Order Plan Item
+ Choose Inventory group
+
+ Click OK
+
+Step 2  -  View Order Plan Items
+
+ Click View Order Plan Item. This will show the details of item as per inventory group. It includes qty. on purchase order, qty on transfer order, available qty, etc.
+
+Step 3  -  Create Order Plan Lines
+
+ Choose Item to create Plan
+ Choose the item types that need to be included in order plan
+
+ Click OK
+
+Step 4  -  Fill Order Plan Lines
+Order plan will be generated in order plan line tab. All the other columns are for information.
+
+ Fill in Planned Qty to Order and Direct Unit Cost
+
+Step 5  -  Print PO Calculation
+
+ Click Print PO Calculation and Print
+
+
+
+Step 6  -  Create Purchase Order
+
+ Click Create Purchase Order
+ The system will provide you with purchase order documents. Go to parts purchase order and process purchase order flow.
+
+
+ Now, go to Parts Purchase order and search purchase order
+ Open purchase order
+ Fill the details (Date, LC, Pragyapanpatra, Invoice no.)
+ Post purchase order.
+
+
+
+2  -  Import Parts Receipt
+ Search Parts Purchase Order
+ From the list, open PO
+ Click Post > Receive > OK
+
+Update in General tab
+Update Posting date
+Update in Purchase Line
+For partial receipt, change in Qty. to Receive field. Put 0 if you do not want to receive that line.
+
+
+
+ Post > invoice>ok
+
+3  -  Print Spare parts Receipt
+ Search Posted Purchase Receipt
+ From the list, select the line
+ Print the document.
+
+
+
+4  -  Spare Parts Invoice
+ Search Spare Parts Purchase Order
+ From the list, open PO
+ Click Post > Invoice > OK
+
+
+Update in General tab
+Update Posting date and Vendor Invoice No.
+Update in Purchase Line
+Update amount and discount. For partial invoice, change in Qty. to Invoice field. Put 0 if you do not want to invoice that line.
+
+
+
+
+
+5  -  Print Spare Parts Invoice
+ Search Posted Purchase Invoice
+ From the list, select the line
+ Print the document.
+
+
+
+
+[PM-07]  -  [Custom Charges in Import Parts Purchase]
+1 -  Purchase Invoice
+ Search Purchase invoice
+ Create New Document
+
+General
+Fill PO no, Vendor details, Order date, document date, PI Date, Posting date, Consignment No., LC No., Pragyapanpatra and Invoice No.
+Purchase Line
+Choose charge item, qty and amount. Each item charge must be assigned to vehicles.
+
+
+
+
+
+
+2 -  Item Charge Assignment
+ To assign item charge, select the line.
+ Click Line > Related Information > Item Charge Assignment
+
+ New window will open. Click get receipt line
+
+ Search by Pragyapanpatra. Select all the lines that need to be assigned.
+ Click OK
+
+ Click Suggest Item charge assignment
+ Click By amount
+ Click OK
+m
+ Close this page.
+ Repeat this process for all charge item lines.
+ After assigning all item charges, Post the document
+3 -  Post and Print Purchase Invoice
+ Click Post > Invoice > OK
+ Go to Posted Purchase Invoice and Print the document.
+
+
+[PM-08]  -  [Import Spare Purchase Return]
+1  -  Return Purchase Order
+ Search for Spare Parts Purchase Return Order
+ Click New. New document will open
+ Click in No. field. New No. will generate
+ Click Copy Document
+
+New window will open
+ Choose Document Type and Document No.
+ Select Include Header
+ Click OK
+
+ Return Document will be opened.
+ Enter Vendor Credit Memo, Return Reason Code. Post the document.
+
+
+ Post the document.
+
+2  -  Print Parts Purchase Return
+ Search Vehicle Purchase Return Order
+ Select document
+ Click Print
+
+
+[PM-09]  -  [History and Reports]
+1 -  History
+ Posted Purchase Receipt
+ Posted Purchase Invoice
+ Posted Purchase Return Shipment
+ Posted Purchase Credit Memo
+ Vendor ledger entries
+ Item Ledger entries
+ Value entries
+ Service Item (Vehicles)
+2 -  Reports
+ Vendor Trial and Detail Trial Balance
+ Landed Cost Sheet
+ Inventory Valuation
+ Inventory Purchase Order
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sales Module
+[SM-01]  -  [Vehicle Sales]
+Create Contact
+ Search Contact
+ Click on Contact , it will open
+
+ Click New or click on No. to open existing contact.
+ It will open
+
+Fill Name, Address, mobile no. customer type, email, sales person code, province, district, Muncipality, Citizenship no, last date time modified, Date of last interaction, last date attempted, Next task date
+Other required details.
+
+ Click On create Opportunity, It will open
+ Fill description, contact name and address  -  auto populated,sales person code, priority,sales Cycle code
+
+
+ Click on Activate first stage
+
+
+Sales Cycle Stage is now auto updated.
+
+ To open existing opportunities,Click on Opportunites
+ Click on No., it will open and Continue as above.
+
+
+
+
+
+
+
+1  -  Vehicle Sales Quote
+ Search for Vehicle Sales Quote
+ List will open. Click New for new quote
+
+
+
+
+
+
+
+General
+Fill customer no, Mode of Finance, Finance No, Finance Name, Mode of Payment, Discount, Accessories cost, Insurance Cost, Different Commissions, TDS amount and Agent details.
+
+
+
+
+ sales line
+Fill Model, Model version, VIN, Variant, Engine No, Motor No, Battery No, Registration No, location, quantity, unit price, amount and discount.
+
+ Click on make sales memo.
+ List will open. Fill the mode of payment.
+
+
+Recovery sheet
+Fill Type, Do status, Split Amount, Credit Timelines, Grace Period , Interest will be automatically calculated
+Interest rate will be defined in Sales & receivable setup
+
+
+
+
+
+
+
+
+
+Print the vehicle Memo
+
+
+2-vehicle sales memo
+Click on make memo on vehicle sales memo after approval
+
+ search vehicle sales memo on search bar
+                                      ale
+
+
+
+
+
+ Click on Make order
+ Click on print
+
+
+ Click on print
+
+3-Vehicles sales order
+ Click on Make order in Vehicle sales Quote
+ Search Vehicle sales Order
+ Click on Document NO. to Open
+
+
+
+
+
+ Print tax invoice from Posted sales invoice
+
+
+
+
+ Print delivery note from posted sales shipment
+
+
+
+
+
+
+
+Vehicle sales Return
+1-Vehicle sales return  Order
+ Search for Vehicle sales return Order
+ Click New. New document will open
+ Click in No. field. New No. will generate
+ Click Copy Document
+New window will open
+ Choose Document Type and Document No.
+ Select Include Header
+ Click OK
+
+
+
+
+
+
+
+
+
+
+ Return Document will be opened.
+ Enter Return Reason Code as it is mandatory. Post the document.
+ Post the document.
+2- Print Vehicle sales Return
+ Search Vehicle Purchase Return Order
+ Select document
+ Click Print
+
+  History and Reports
+ Posted Sales Shipment
+ Posted Sales invoice
+ Posted return receipt
+ Posted Sales credit memo
+ Customer ledger entries
+ Item Ledger entries
+ Value entries
+
+2 -  Reports
+ Customer Trial and Detail Trial Balance
+ Stock Value
+ Vat Book
+PDC Module
+[PDC-01]- PDC Journal
+1-Create PDC journal
+Step-1 Record the Cheque detail
+ Search PDC Journal ,click on it to open
+ Fill the fields as Cheque receipt date, sales document no, vin no, cheque type as DO/DP/Cash/credit, type as receipt or payment, document no ,sell to/pay from type, sell to/Buy from No., Sell-to/Buy-from name, sales person code, Bank account, bank account Name, Cheque no., cheque date, cheque amount, narration, remarks as due/deposit/cancel, employee code, sales person code
+ Post it
+
+
+
+
+Step-2 Process PDC Cheque[Cheque deposit, Bounce, cancel]
+ Search PDC entries
+ Click on Process > Select Deposit/Bounce/cancel/Reverse
+ Click on Post Journal and post it by OK
+
+
+
+
+
+
+
+
+Vehicle Recovery Module
+[VR-01] - Vehicle Recovery
+1 Vehicle recovery memo line
+ Search Vehicle recovery memo line
+ Select the line to transfer on vehicle recovery sheet
+ Click on Create recovery lines > yes
+
+
+
+2 Vehicle recovery sheet
+ Search Vehicle recovery sheet
+
+
+Update status, enter collection date, interview and site visit date, approval date, legal date, DO date, Payment for DO credit date, LC No, Due date given by bank, PDC maturity date,  Delivery Chalan date( updating the date, ageing category will delivery from invoice)
+3 Create Cash receipt Journal from vehicle recovery Sheet
+ Click on action> create cash receipt.
+
+[SM-03] Vehicle Delivery
+1 Delivery Chalan
+ Post sales invoice
+ Open the invoice by searching Posted sales invoice
+ Click on document profile
+
+ Posted sales invoice will open
+ Click on Delivery challan
+
+
+Ensure wheather Customer is provided with Service Manual book, Operator manual book, Blue book, Insurance book by clicking on bollean Tick.
+Enter PDI date, Test drive date and sales invoice header
+ Click on print
+
+2 Delivery Challan Details
+
+
+Ensure the vehicle chasis number,and click on
+Click on Action
+
+ Click on Post vehicle delivery > yes
+ Enter actual delivery date > ok
+
+3 Allotment Letter
+
+
+
+
+Tick bollean on finance amount If required to show finance amount.
+Enter print.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Service booking
+ Go To BC
+ Search service Booking > Click on It to open
+ Fill Customer information as Customer NO. Name, address,VAT no. Contact no VIN/Chasis No, registration, Job Description as Service, Customer Invoice, Drivers(Name, Address, mobile no.)
+ If vehicle not visit, cancel Booking
+ If Vehicle Visit, Click on Make Service Order
+
+
+
+ Vehicle Service Order
+ Go TO BC
+ Search Service Order> click on it to Open
+ Click on NO. to open it.
+
+
+
+   Fill the fields  in Header as Arrival Date, Arrival time, Estimated Delivery Date, Estimated Delivery Time, Estimated cost, Job type, Vehicle service Plan, Last visit KM, Next service date.
+   S.No.
+   Field
+   Remarks
+   1
+   No.
+   Auto Populated
+   2
+   Job Description
+   Auto Populated
+   3
+   Customer No.
+   Auto Populated
+   4
+   Phone No.
+   Enter the Phone no.
+   5
+   Email
+   Enter the email address
+   6
+   Job Type
+   Select the relevant Job type
+   7
+   Estimated Cost
+   Enter the estimated cost
+   8
+   Service Advisor
+   Select the respective advisor
+   9
+   PAN No.
+   Auto Populated
+   10
+   Veh Ser Plan Line No
+   Select the respective Veh ser Plan
+   11
+   Kilometers
+   Enter the Kilometers
+   12
+   Last Visit Kilometer
+   Auto Populated
+   13
+   Next Service Date
+   Enter the next service date
+   14
+   Reg No
+   Auto Populated
+   15
+   VIN / Chasis No.
+   Auto Populated
+   16
+   Booking Date
+   Auto Populated
+   17
+   Booking Time
+   Auto Populated
+   18
+   Arrival Date
+   Enter the arrival date
+   19
+   Posting Date
+   Enter the Posting Date
+   20
+   Arrival Time
+   Enter the arrival time
+   21
+   Work Description
+   Enter the Narration
+
+
+
+   Fill in Lines as (Make code, Model code, Model Version)- auto Populated, Start date, start time, End date, End time, Bay, Kilometer, Hour reading.
+
+ Create  Inventory Checklist
+ Click in Check inventory Checklis
+
+
+ Tick the bullin which includes the customer spare parts on vehicle
+
+
+ Customer Complaints
+ Click on complain and observation
+ Enter complain of customer in vehicle, root cause and action.
+ Print it and provide to customer for approval.
+
+
+
+
+
+   Create Service line
+   Step-1  Click on Order and then Click on Service Line. (It Opens the Service line Card )
+
+   Step-2 Enter the detail
+
+   S.No.
+   Field
+   Remarks
+   1
+   Line type
+   Select the line type
+   2
+   No.
+   Select No
+   3
+   Description
+   Enter the description
+   4
+   Location Code
+   Enter the location Code
+   5
+   Job type Code
+   Enter the job type
+   6
+   Bill to Customer
+   Auto Populated
+   7
+   Bill to Customer Name
+   Auto Populated
+   8
+   Quantity
+   Enter the required quantity
+   9
+   Unit of  Measure  Code
+   Enter the Unit measure code
+
+   Step-3 Assign Technician to Service Line
+ Click on Resource allocation
+ Fill the field
+
+   Step-4 Transfer Items (spare parts) to Service Location
+ Click on Create Requisition
+ Enter the required spare parts
+ Post and receive
+
+Step-5
+Put the value of the resource and item
+
+
+Step-6
+ Goto service order and change the repair status to finished.
+ post it.
+
+
+   History and Reports
+ Posted service invoice
+ Posted shipment
+ Customer ledger entries
+ Item ledger entries
+ Vat
+ Detail customer ledger entries
+
+[Purchase Process]
+Process 1  -  Creating Purchase Order for Local Purchase
+ Type Purchase Order in search icon and select the same among the displayed list of options
+ Lists will open
+
+
+ Click New and fill in the details as demonstrated below
+
+   Fig: General Tab in Purchase Order
+
+   Fig: Purchase Order Lines
+
+
+
+
+SN
+Description
+Remarks
+1
+Vendor No.,
+Select the vendor to whom the purchase order is being made. Vendor Name is auto populated
+2
+Address
+Enter the vendor's address
+3
+Contact
+Enter the vendor's contact
+5
+Order Date
+Enter the date when the order is created
+6
+Posting Date
+Enter the date you want the Posting Date on the Ledger Entry tables when the order is Received and Invoiced. Nepali Date is auto populated converting the posting date to Nepali date
+7
+Due Date
+Enter the date that the balance payment of the order would be due
+8
+Account Type
+Choose either:
+ G/L Account
+ Customer
+ Vendor
+ Bank Account
+ Fixed Asset
+ Employee
+ Loan
+9
+Account No
+Choose account according to account type.
+10
+Account Name
+It will be auto populated from prospect card
+11
+Description
+Amend the voucher description which is auto populated with Account Name if any additional information must be entered
+12
+Branch Code
+Choose the branch location
+13
+Quantity to receive/Quantity to invoice
+It is auto populated
+14
+TDS Group
+Select the appropriate TDS group from the option.
+15
+TDS %/TDS amount
+Automatically updated based on the TDS group selected
+Automatically updated based on the TDS group selected
+
+-Click Receive to only receive the item but not invoice.
+- Click Invoice to only invoice the item
+- Click Receive and Invoice to both receive and invoice the items
+
+Process 2 - Viewing Posted Purchase Invoice and Print
+ Type Posted Purchase Invoice in search icon and select the same among the displayed list of options
+ Lists will open and select the posted invoice according to the Order No.
+
+
+
+
+
+
+
+Booking Expense only
+Step 1 Click Journal   General Journal
+Alternatively, type General Journal in search icon and select the same among the displayed list of options
+
+
+Step 2:  Enter voucher
+SN
+Description
+Remarks
+1
+Posting Date
+Enter the voucher English date. If not, the Nepali date entered is automatically converted to English here
+2
+Nepali Date
+Enter the voucher Nepali date. If not, the English date entered is automatically converted to Nepali here
+2
+Document No.
+It is auto generated
+3
+Account Type
+Choose either:
+ G/L Account
+ Customer
+ Vendor
+ Bank Account
+ Fixed Asset
+ Employee
+ IC Partner
+ Loan
+4
+Account No
+Choose account according to account type.
+5
+Account Name
+It will be auto populated from prospect card
+6
+Transaction Type
+It is auto populated for Vendor and Customer. In case of Employee the Transaction Type must be selected (E.g., Advance, Loan)
+7
+Description
+Amend the voucher description which is auto populated with Account Name if any additional information must be entered
+8
+Branch Code
+Choose the branch location
+9
+Debit Amount
+Enter debit amount
+10
+Credit Amount
+Enter credit amount
+11
+Narration
+Enter the Narration
+
+-Post it. Click on Post.
+
+View and Print of General Journal
+ Search General Ledger entries
+ Select the G/L
+ Click on Report> print Voucher
+ Click on print
+
+
+
+
+
+
+
+Booking Expense with TDS
+ Search General Journal
+ Enter The Details
+Step 2:  Enter voucher
+SN
+Description
+Remarks
+1
+Posting Date
+Enter the voucher English date. If not, the Nepali date entered is automatically converted to English here
+2
+Nepali Date
+Enter the voucher Nepali date. If not, the English date entered is automatically converted to Nepali here
+2
+Document No.
+It is auto generated
+3
+Account Type
+Choose either:
+ G/L Account
+ Customer
+ Vendor
+ Bank Account
+ Fixed Asset
+ Employee
+ IC Partner
+ Loan
+4
+Account No
+Choose account according to account type.
+5
+Account Name
+It will be auto populated from prospect card
+6
+Transaction Type
+It is auto populated for Vendor and Customer. In case of Employee the Transaction Type must be selected (E.g., Salary Advance, Loan)
+7
+Description
+Amend the voucher description which is auto populated with Account Name if any additional information must be entered
+8
+Branch Code
+Choose the branch location
+9
+Debit Amount
+Enter debit amount including the VAT
+10
+Credit Amount
+Enter credit amount
+11
+Narration
+Enter the Narration
+12
+Bill/Cheque No.
+Enter the bill number
+13
+TDS Group
+Select the TDS Group
+14
+TDS %
+Select the applicable TDS rate
+
+ Post it. Click on post.
+View and Print General journal
+ Search General Ledger entries
+ Select the General journal
+ Click on Report > print
+
+Booking of expenses with Vat and TDS
+ Search General Journal
+ Enter the detail
+ Also Enter Vat and TDs
+
+ Post it. Click on post > ok
+View and print of General journal
+ Search general ledger entries
+ Select the General journal
+ Click on Report >Print Report
+ Print
+
+Payment Journal
+ Make Payment to vendor
+ Search Payment Journal or
+ Click on Journal
+
+ Select appropriate template
+
+ Fill the detail of vendor OR
+ If posted Purchase invoice of Vendor need to Make payment,
+ Click on Applies entries
+
+ Select the Posted document,
+ Click on Set Applies-to ID > OK
+
+ The detail of Vendor with amount will be copied.
+
+ Enter the payment line
+
+ Preview and Post It. Click on preview for review.
+ Click on Post > Yes
+
+View and print of Payment Journal
+ Search general Ledger entries
+ Click on
+ Select Journal
+ Click on report > print Voucher
+ Print Ok
+
+
+
+ Make Payment To Employee
+   Step 1: Click Journal   Payment Journal
+Alternatively, type Payment Journal in search icon and select the same among the displayed list of options
+
+Step 2:  Select appropriate template and Click on Name. (It opens the Voucher Entry Page)
+
+
+
+Step 3:  Enter the voucher entries
+SN
+Description
+Remarks
+1
+Posting Date
+Enter the voucher English date. If not, the Nepali date entered is automatically converted to English here
+2
+Nepali Date
+Enter the voucher Nepali date. If not, the English date entered is automatically converted to Nepali here
+2
+Document No.
+It is auto generated
+3
+Account Type
+Choose Employee in debit entry and Bank Account in the credit entry
+4
+Account No
+Choose specific employee name in debit entry and specific bank account name in the credit entry
+5
+Account Name
+It will be auto populated from prospect card
+6
+Transaction Type
+Select the Transaction Type (E.g., Salary Advance, Loan, Travel Advance)
+7
+Description
+Amend the voucher description which is auto populated with Account Name if any additional information must be entered
+8
+Debit Amount
+Enter debit amount
+9
+Credit Amount
+Enter credit amount
+10
+Narration
+Enter the Narration
+11
+Branch Code
+Choose the branch location
+
+
+-Post it, click on Post > Yes
+
+View and print the Invoice
+ Search general ledger entries
+ Click on Report > print Voucher > print
+
+
+
+Create Cash Receipt Journal
+ Enter receipt from Customer or employee
+
+
+Step 3:  Enter voucher
+SN
+Description
+Remarks
+1
+Posting Date
+Enter the voucher English date. If not, the Nepali date entered is automatically converted to English here
+2
+Nepali Date
+Enter the voucher Nepali date. If not, the English date entered is automatically converted to Nepali here
+2
+Document No.
+It is auto generated
+3
+Account Type
+Choose Bank Account in the debit entry. Choose Customer (if cash is being received from the customer) or Employee (if cash is being received from the employee) in credit entry.
+4
+Account No
+Choose specific bank account name in the debit entry and specific customer name or employee name in credit entry
+5
+Account Name
+It will be auto populated from prospect card
+6
+Transaction Type
+Select the Transaction Type (E.g., Salary Advance, Loan, Travel Advance) only when the Account Type is Employee. Incase of Customer it should remain empty.
+7
+Description
+Amend the voucher description which is auto populated with Account Name if any additional information must be entered
+8
+Debit Amount
+Enter debit amount
+9
+Credit Amount
+Enter credit amount
+10
+Narration
+Enter the Narration
+11
+Branch Code
+Choose the branch location
+
+Click on Post.> yes
+
+View and Print the invoice
+ Search General Ledger Entries
+ Click in Document No.
+ Click on Report > Print Voucher >print
+
+
+
+
+Purchase Return Process
+Step 1  -  Creating Purchase Return Order from Posted Purchase Invoice
+ Search Posted purchase invoice in search icon and select the same among the displayed list of options
+ Lists will open
+
+
+
+ Click on NO.
+ Document will open
+ Click on Home > Correct>Create corrective Credit memo
+
+ Document Will be displayed
+
+
+
+SN
+Description
+Remarks
+1
+Vendor NO.
+Vendor No of posted purchase invoice is auto populated.
+2
+Posting Date
+Enter the voucher English date. If not, the Nepali date entered is automatically converted to English here
+3
+Vendor Credit Memo
+enter bill no. provided by the vendor.
+4
+Return Document No.
+document no. of posted purchase invoice of which return is being done will be displayed.
+5
+Return reason Code
+document no. of posted purchase invoice of which return is being done will be displayed.
+6
+Quantity/ Unit Measure
+Auto populated.
+7
+Branch Code
+Choose the branch location
+
+ Post it.
+Click on Post > Yes
+
+View and print Purchase return Invoice
+ Search Posted Purchase credit memo
+ Click in Document No. > report> print > Yes
+
+
+Service Module
+  Service Booking
+
+ Go To BC
+ Search service Booking > Click on It to open
+ Fill Customer information as Customer NO. Name, address,VAT no. Contact no VIN/Chasis No, registration, Job Description as Service, Customer Invoice, Drivers(Name, Address, mobile no.)
+ If vehicle not visit, cancel Booking
+ If Vehicle Visit, Click on Make Service Order
+
+
+
+ Vehicle Service Order
+ Go TO BC
+ Search Service Order> click on it to Open
+ Click on NO. to open it.
+
+
+
+   Fill the fields  in Header as Arrival Date, Arrival time, Estimated Delivery Date, Estimated Delivery Time, Estimated cost, Job type, Vehicle service Plan, Last visit KM, Next service date.
+   S.No.
+   Field
+   Remarks
+   1
+   No.
+   Auto Populated
+   2
+   Job Description
+   Auto Populated
+   3
+   Customer No.
+   Auto Populated
+   4
+   Phone No.
+   Enter the Phone no.
+   5
+   Email
+   Enter the email address
+   6
+   Job Type
+   Select the relevant Job type
+   7
+   Estimated Cost
+   Enter the estimated cost
+   8
+   Service Advisor
+   Select the respective advisor
+   9
+   PAN No.
+   Auto Populated
+   10
+   Veh Ser Plan Line No
+   Select the respective Veh ser Plan
+   11
+   Kilometers
+   Enter the Kilometers
+   12
+   Last Visit Kilometer
+   Auto Populated
+   13
+   Next Service Date
+   Enter the next service date
+   14
+   Reg No
+   Auto Populated
+   15
+   VIN / Chasis No.
+   Auto Populated
+   16
+   Booking Date
+   Auto Populated
+   17
+   Booking Time
+   Auto Populated
+   18
+   Arrival Date
+   Enter the arrival date
+   19
+   Posting Date
+   Enter the Posting Date
+   20
+   Arrival Time
+   Enter the arrival time
+   21
+   Work Description
+   Enter the Narration
+
+
+
+   Fill in Lines as (Make code, Model code, Model Version)- auto Populated, Start date, start time, End date, End time, Bay, Kilometer, Hour reading.
+
+
+Step-2 Create  Inventory Checklist or PDI inspection
+ Click in Check inventory Checklist
+ Tick the bullin which includes the customer spare parts on vehicle
+
+
+OR In case of PDI
+ Click on PDI inspection
+
+ Below interface will open
+ Click on edit list
+ Click on status Ok/Not ok on the basis of parameter to check
+
+Step-3 Customer Complaints
+ Click on complain and observation
+ Enter complain of customer in vehicle, root cause and action.
+ Print it and provide to customer for approval.
+
+
+
+Step-4 Print Job card
+ Click on print > print
+
+
+Step-5 Create Service line
+   Step-1  Click on Order and then Click on Service Line. (It Opens the Service line Card )
+
+   Step-2 Enter the detail
+
+   S.No.
+   Field
+   Remarks
+   1
+   Line type
+   Select the line type
+   2
+   No.
+   Select No
+   3
+   Description
+   Enter the description
+   4
+   Location Code
+   Enter the location Code
+   5
+   Job type Code
+   Enter the job type
+   6
+   Bill to Customer
+   Auto Populated
+   7
+   Bill to Customer Name
+   Auto Populated
+   8
+   Quantity
+   Enter the required quantity
+   9
+   Unit of  Measure  Code
+   Enter the Unit measure code
+
+Step-6 Assign Technician to Service Line
+ Click on Resource allocation
+ Fill the field and put the technicians
+
+
+
+Step-7 Create Requisition and Transfer Items (spare parts) to Service Location
+ Click on Create Requisition
+ Enter the require spare parts
+  After spare parts received from parts division, Post  and receive
+
+ Following interface will open
+ Enter the required spare parts on requisition description and quantity.
+
+      Check the shipped quantity after shipped from parts division and quantity to receive
+      Click on post >> receive>>  ok
+
+
+
+Note; Jobe type code is mandatory.
+ For External Service
+ Click on dropdown on line type external service
+ Select external service on NO. > Description, Location code, bill to customer is auto.
+ Enter job type code as mandatory.
+ Enter Quantity, unit of measure code,unit price excel vat, line discount if any.
+
+
+ Select the vendor in external service buy from vendor no.
+ Click on Create purchase order
+
+
+Create External service
+ Search External Service
+ Click on External Service
+
+ Click on New
+
+Fill NO.-auto populated, Description as external service,type,base unit of measure,
+In cost  and posting, Costing Method, Gen. prod. Posting group, vat prod, posting group
+
+
+Step-8 Finish Service order
+ Goto service order and change the repair status to finished.
+ post it.
+
+ Click on print/send > click on print performa Invoice
+
+Step-9 Process Service Billing
+   Enter the Payment method
+
+
+
+ Click on process billing
+
+
+ On other server, open the service order of same service order no. ,customer, vin no.
+ Once verify the amount and other details with previous server.
+ Click on post >ok >ok
+
+
+
+
+
+Step-10 Print service invoice and Gatepass
+ Search posted service invoice
+ Click on it
+
+ Click on NO.
+ It will open
+
+
+
+
+
+   Gatepass(Shipment)
+
+ Search posted service shipment
+ Open it
+ Click on Home> Gatepass
+ Print
+
+
+
+Instant Servic Feedback and After service Feedback
+ Click on Instant service feedback or after service feedback> Yes
+ Fill on evaluation and comment if any.
+ Create complaint if any fill the detail
+ Post
+
+
+
+
+While click on Create Complaint > yes
+
+Complaint will open as follows;
+
+Reports
+Posted satisfaction feedback/Daily complaint followup
+Posted satisfaction feedback
+ Search posted satisfaction feedback
+ Following page will open
+
+
+
+Daily complaint Followup
+ Search Daily complaint Followup
