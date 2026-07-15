@@ -1,4 +1,4 @@
-page 51010 "Honda Opportunity Activities Part"
+page 51010 "Honda Opp. Activities Part"
 {
     PageType = ListPart;
     ApplicationArea = All;

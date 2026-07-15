@@ -40,7 +40,7 @@ pageextension 51002 "Honda Opportunity Card Ext." extends "Opportunity Card"
         }
         addfirst(factboxes)
         {
-            part(HondaOpportunityActivitiesPart; "Honda Opportunity Activities Part")
+            part(HondaOpportunityActivitiesPart; "Honda Opp. Activities Part")
             {
                 ApplicationArea = All;
                 SubPageLink = "Opportunity No." = field("No.");
@@ -86,7 +86,7 @@ pageextension 51002 "Honda Opportunity Card Ext." extends "Opportunity Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Create Follow-up';
-                    Image = NewTask;
+                    Image = Task;
 
                     trigger OnAction()
                     var

@@ -9,7 +9,6 @@ pageextension 51000 "Honda Contact Card Ext." extends "Contact Card"
                 Caption = 'Honda CRM';
                 field("Honda Customer Type"; Rec."Honda Customer Type") { ApplicationArea = All; }
                 field("Honda Lead Source"; Rec."Honda Lead Source") { ApplicationArea = All; }
-                field("Salesperson Code"; Rec."Salesperson Code") { ApplicationArea = All; }
                 field("Honda Preferred Dealer Code"; Rec."Honda Preferred Dealer Code") { ApplicationArea = All; }
                 field("Honda Product Category"; Rec."Honda Product Category") { ApplicationArea = All; }
                 field("Honda Preferred Model Code"; Rec."Honda Preferred Model Code") { ApplicationArea = All; }
@@ -29,7 +28,6 @@ pageextension 51000 "Honda Contact Card Ext." extends "Contact Card"
                 Caption = 'Honda Follow-up';
                 field("Honda Last Attempted Date"; Rec."Honda Last Attempted Date") { ApplicationArea = All; Editable = false; }
                 field("Honda Next Task Date"; Rec."Honda Next Task Date") { ApplicationArea = All; Editable = false; }
-                field("Last Date Attempted"; Rec."Last Date Attempted") { ApplicationArea = All; Editable = false; Caption = 'Date of Last Interaction'; }
                 field("Honda Consent to Contact"; Rec."Honda Consent to Contact") { ApplicationArea = All; }
                 field("Honda Consent Date"; Rec."Honda Consent Date") { ApplicationArea = All; }
                 field("Honda Do Not Contact"; Rec."Honda Do Not Contact") { ApplicationArea = All; }
@@ -83,7 +81,7 @@ pageextension 51000 "Honda Contact Card Ext." extends "Contact Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Create Follow-up';
-                    Image = NewTask;
+                    Image = Task;
 
                     trigger OnAction()
                     var

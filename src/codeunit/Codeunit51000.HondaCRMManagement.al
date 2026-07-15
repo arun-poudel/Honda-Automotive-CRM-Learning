@@ -68,7 +68,6 @@ codeunit 51000 "Honda CRM Management"
     var
         OppLine: Record "Honda Opp. Vehicle Line";
         Dealer: Record "Honda Dealer";
-        OppMgt: Codeunit "Opportunity Management";
     begin
         Contact.TestField("No.");
         Contact.TestField(Name);

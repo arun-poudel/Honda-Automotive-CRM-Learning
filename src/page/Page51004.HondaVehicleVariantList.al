@@ -1,6 +1,6 @@
 page 51004 "Honda Vehicle Variant List"
 {
-    PageType = List;
+    PageType = ListPart;
     ApplicationArea = All;
     UsageCategory = None;
     SourceTable = "Honda Vehicle Variant";
