@@ -1,0 +1,2783 @@
+Honda Automotive CRM Learning Extension
+Part 1 — Contact, Opportunity, Vehicle Interest, Activities and SalesCycle Foundation
+1 ============================================================
+2 TASK - HONDA AUTOMOTIVE CRM - PART 1
+3 Business Central / AL
+4 ============================================================
+Hi Arun, welcome to your second major hands-on AL project.
+Your Student Management Module taught you the master → journal → posting →
+permanent entry pattern. This project introduces a different Business Central pattern:
+1 Contact
+2
+↓
+3 Opportunity
+4
+↓
+5 Sales Cycle
+6
+↓
+7 Vehicle Interest
+8
+↓
+9 Follow-up Activities
+10
+↓
+11 Opportunity Progress
+The Future Motors process manual uses standard Business Central Contacts and
+Opportunities. Users first create a Contact, then create an Opportunity, select its
+salesperson, priority and sales-cycle code, and activate the first stage. The Contact also
+contains customer details, location information, salesperson assignment, interaction dates
+and next-task information. We will build Part 1 around that same foundation instead of
+creating unnecessary replacements for standard CRM objects. [Future Mot...s Manual 2 |
+Word]
+This is not intended to reproduce a confidential production application. It is a standalone
+learning extension inspired by the documented automotive CRM process.
+
+What Part 1 Will Teach You
+Part 1 focuses on the following AL and Business Central concepts:
+
+1. Extending standard Business Central tables
+2. Extending standard pages
+3. Using standard Contact and Opportunity records
+4. Creating automotive master data
+5. Header-and-line table relationships
+6. Get versus SetRange and SetFilter
+7. TableRelation with conditional filters
+8. Field validation and automatic field population
+9. Duplicate-contact detection
+10. Opportunity creation from a Contact
+11. Sales-cycle activation
+12. Follow-up activity management
+13. Controlled status changes through codeunits
+14. Maintaining permanent history entries
+15. FactBoxes and subpages
+16. Transaction-safe business procedures
+17. Permission sets
+18. Manual acceptance testing
+
+Important Scope Boundary
+Part 1 ends after the opportunity and its CRM activities are established.
+It will not create:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Vehicle Sales Quote
+Vehicle Sales Memo
+Vehicle Sales Order
+Sales Invoice
+Vehicle Delivery
+Recovery Sheet
+Service Booking
+Service Order
+Service Feedback
+Customer Complaint
+
+The Future Motors manual documents those later processes, including quotation, sales
+memo, order, invoicing, delivery and service. They will become later learning modules after
+the CRM foundation is stable. [Future Mot...s Manual 2 | Word]
+
+Before You Start
+Development Rules
+•
+•
+•
+•
+•
+•
+
+Use a separate development sandbox.
+Do not use real customer data.
+Do not commit credentials, environment URLs or secrets.
+Do not copy production source code into the learning repository.
+Use fictional customer, dealer and vehicle data.
+Confirm your actual object-ID range with your technical lead before deploying to a
+company tenant.
+
+Suggested Object ID Range
+For a standalone learning project:
+1 Object IDs: 51000-51199
+The requirement below uses 51000 onward.
+If that range is already occupied, change the IDs consistently before starting.
+
+Suggested Extension Name
+1
+
+Honda Automotive CRM Learning
+
+Suggested Branch Name
+1
+
+feature/honda-crm-part1-arun
+
+Business Process You Are Building
+1 Create or Find Contact
+2
+↓
+3 Check for Possible Duplicates
+4
+↓
+5 Assign Salesperson and Preferred Dealer
+6
+↓
+7 Create Opportunity
+8
+↓
+9 Add Interested Vehicle Model and Variant
+10
+↓
+11 Select Sales Cycle and Activate First Stage
+12
+↓
+
+13 Create Follow-up Activities
+14
+↓
+15 Complete Activities and Update Contact Dates
+16
+↓
+17 Advance Opportunity Through Early CRM Stages
+18
+↓
+19 View Activity and Stage History
+The Future Motors manual shows a similar starting process: create a Contact, fill customer
+and salesperson information, create an Opportunity, select its priority and sales-cycle code,
+and activate the first sales-cycle stage. [Future Mot...s Manual 2 | Word]
+
+Architecture Decision
+Use Standard Business Central Objects
+Part 1 must reuse:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Contact
+Contact Card
+Contact List
+Opportunity
+Opportunity Card
+Opportunity List
+Salesperson/Purchaser
+Standard Sales Cycle
+Standard Sales Cycle Stage
+
+Create Custom Automotive Objects
+Part 1 will create:
+•
+•
+•
+•
+•
+•
+•
+
+Honda Dealer
+Honda Vehicle Model
+Honda Vehicle Variant
+Honda CRM Activity
+Honda Opportunity Vehicle Line
+Honda Opportunity Status Entry
+Honda CRM Management codeunit
+
+Why We Are Not Creating a Custom Lead Table
+For this project:
+
+•
+•
+•
+•
+
+A Contact represents the prospect or customer identity.
+An Opportunity represents one possible vehicle sale.
+An Activity represents work or communication.
+A vehicle-interest line represents what the customer may purchase.
+
+A single Contact may have several Opportunities over time. For example, the same person
+may enquire about a scooter today and an automobile two years later.
+
+Step 1 — Create the Enums
+Use extensible enums where future customization is reasonable.
+
+Enum 51000 Honda Product Category
+Values:
+1 Motorcycle
+2 Scooter
+3 Automobile
+4 Power Product
+Set:
+1
+
+Extensible = true;
+
+Purpose
+This identifies the broad Honda product category in which a Contact or Opportunity is
+interested.
+
+Enum 51001 Honda Dealer Type
+Values:
+1 Showroom
+2 Service Center
+3 3S Facility
+Set:
+1
+
+Extensible = true;
+
+Purpose
+A 3S facility can represent sales, service and spare-parts operations under one location.
+
+Enum 51002 Honda Lead Source
+Values:
+1 Walk In
+2 Website
+3 Phone
+4 Social Media
+5 Campaign
+6 Referral
+7 Dealer
+8 Service Center
+9 Existing Customer
+10 Other
+Set:
+1
+
+Extensible = true;
+
+Purpose
+Lead Source explains where the Contact or sales enquiry originated.
+Although Part 1 uses a standard Contact instead of a separate Lead record, the source still
+needs to be captured for future conversion analysis.
+
+Enum 51003 Honda CRM Activity Type
+Values:
+1 Phone Call
+2 Email
+3 Meeting
+4 Showroom Visit
+5 Test Drive Request
+6 Follow Up
+7 Other
+Set:
+1
+
+Extensible = true;
+
+Enum 51004 Honda CRM Activity Status
+Values:
+1 Open
+2 Completed
+3 Cancelled
+Do not create an empty value unless your team’s enum convention requires one.
+
+Enum 51005 Honda Opportunity CRM Stage
+Values:
+1
+2
+3
+4
+5
+6
+
+New
+Initial Contact
+Needs Analysis
+Vehicle Selection
+Test Drive
+Quotation Ready
+
+Important
+This custom stage is the simplified automotive stage used by your extension. It does not
+replace the standard Business Central Sales Cycle Stage.
+The record should still retain its standard Sales Cycle relationship. Your custom field gives
+you a controlled learning workflow and simpler validation rules.
+
+Enum 51006 Honda Opportunity Result
+Values:
+1 Open
+2 Ready for Quotation
+3 Won
+4 Lost
+5 Cancelled
+Part 1 will mainly use:
+•
+•
+•
+
+Open
+Ready for Quotation
+Lost
+
+•
+
+Cancelled
+
+Actual quotation conversion and final sales processing will be introduced later.
+
+Enum 51007 Honda Lost Reason
+Values:
+1 Price
+2 Finance Unavailable
+3 Vehicle Unavailable
+4 Competitor
+5 Purchase Postponed
+6 Unable to Contact
+7 Not Interested
+8 Duplicate Enquiry
+9 Other
+Set:
+1
+
+Extensible = true;
+
+Enum 51008 Honda Contact Preference
+Values:
+1
+2
+3
+4
+
+Phone
+Email
+In Person
+No Preference
+
+Concept Check
+Explain why enums are preferred over free text for:
+•
+•
+•
+•
+
+Activity Status
+Opportunity Result
+Lost Reason
+Product Category
+
+Your answer should cover:
+•
+•
+
+Controlled values
+Consistent filters
+
+•
+•
+•
+•
+
+Reliable business logic
+Better reporting
+Prevention of spelling variations
+Extensibility
+
+Step 2 — Create the Automotive Master Tables
+Table 51000 Honda Dealer
+This stores the dealership, showroom or service-center locations relevant to the CRM
+process.
+
+Fields
+1 1
+Code
+2 2
+Name
+3 3
+Dealer Type
+4 4
+Address
+5 5
+Address 2
+6 6
+City
+7 7
+Province
+8 8
+District
+9 9
+Municipality
+10 10 Phone No.
+11 11 Email
+12 12 Contact Person
+13 13 Location Code
+14 14 Salesperson Code
+15 15 Active
+16 16 Blocked
+17 17 Last Date Modified
+
+Primary Key
+1
+
+Code
+
+Table Relations
+1
+2
+3
+4
+
+Location Code
+→ Location.Code
+Salesperson Code
+
+Code[20]
+Text[100]
+Enum "Honda Dealer Type"
+Text[100]
+Text[50]
+Text[50]
+Text[50]
+Text[50]
+Text[50]
+Text[30]
+Text[80]
+Text[100]
+Code[20]
+Code[20]
+Boolean
+Boolean
+Date
+
+5
+
+→ Salesperson/Purchaser.Code
+
+Default Values
+1
+2
+
+Active = true
+Blocked = false
+
+Validations
+•
+•
+•
+
+Name must not be blank.
+A blocked dealer cannot be selected on new CRM records.
+Email validation should use an appropriate standard Business Central emailvalidation method if available in your target runtime.
+Update Last Date Modified when relevant values change.
+
+•
+
+Table 51001 Honda Vehicle Model
+This represents a CRM product master.
+It does not represent a physical vehicle in stock and does not replace the standard Item
+table.
+
+Fields
+1 1
+Code
+2 2
+Description
+3 3
+Product Category
+4 4
+Make Code
+5 5
+Model Year
+6 6
+Starting Price
+7 7
+Active
+8 8
+Blocked
+9 9
+Item No.
+10 10 Last Date Modified
+
+Code[20]
+Text[100]
+Enum "Honda Product Category"
+Code[20]
+Integer
+Decimal
+Boolean
+Boolean
+Code[20]
+Date
+
+Primary Key
+1
+
+Code
+
+Table Relations
+1 Item No.
+2
+→ Item."No."
+Item No. remains optional in Part 1. It provides a future bridge to quotation and inventory.
+
+Default Values
+1
+2
+3
+
+Make Code = HONDA
+Active = true
+Blocked = false
+
+Validations
+•
+•
+•
+•
+•
+
+Description is mandatory.
+Product Category is mandatory.
+Starting Price cannot be negative.
+Model Year cannot be negative.
+A blocked model cannot be selected on a new opportunity line.
+
+Table 51002 Honda Vehicle Variant
+This stores variants belonging to a vehicle model.
+
+Fields
+1 1
+Model Code
+2 2
+Code
+3 3
+Description
+4 4
+Model Year
+5 5
+Fuel Type
+6 6
+Transmission Type
+7 7
+Color Description
+8 8
+Unit Price
+9 9
+Item No.
+10 10 Active
+11 11 Blocked
+
+Code[20]
+Code[20]
+Text[100]
+Integer
+Text[30]
+Text[30]
+Text[50]
+Decimal
+Code[20]
+Boolean
+Boolean
+
+Primary Key
+1
+
+Model Code, Code
+
+Table Relations
+1
+2
+3
+4
+5
+
+Model Code
+→ Honda Vehicle Model.Code
+Item No.
+→ Item."No."
+
+Validations
+•
+•
+•
+•
+
+Model Code is mandatory.
+Description is mandatory.
+Unit Price cannot be negative.
+Model Year cannot be negative.
+
+Concept Check
+Why is the primary key made from both Model Code and Code?
+Expected understanding:
+•
+•
+•
+•
+
+A variant belongs to a model.
+The same short variant code may be meaningful under different models.
+The compound key establishes the parent-child identity.
+It supports filtering variants by the selected model.
+
+Step 3 — Create the Master Pages
+Create the following pages:
+1
+2
+3
+4
+5
+
+Page 51000
+Page 51001
+Page 51002
+Page 51003
+Page 51004
+
+Honda Dealer Card
+Honda Dealer List
+Honda Vehicle Model Card
+Honda Vehicle Model List
+Honda Vehicle Variant List
+
+Page 51000 Honda Dealer Card
+Page type:
+1 Card
+Source table:
+1 Honda Dealer
+Groups:
+•
+•
+•
+•
+
+General
+Address and Communication
+Assignment
+Administration
+
+Show all relevant fields.
+
+Page 51001 Honda Dealer List
+Page type:
+1 List
+Show:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Code
+Name
+Dealer Type
+City
+Province
+Phone No.
+Salesperson Code
+Active
+Blocked
+
+Set:
+1
+2
+3
+
+UsageCategory = Lists;
+ApplicationArea = All;
+CardPageId = "Honda Dealer Card";
+
+Page 51002 Honda Vehicle Model Card
+Groups:
+•
+•
+•
+•
+•
+
+General
+Product Information
+Pricing
+Integration
+Administration
+
+Add a part showing variants belonging to the current model.
+Use SubPageLink to filter the variant list by Model Code.
+
+Page 51003 Honda Vehicle Model List
+Show:
+•
+
+Code
+
+•
+•
+•
+•
+•
+•
+
+Description
+Product Category
+Model Year
+Starting Price
+Active
+Blocked
+
+Set:
+1
+2
+3
+
+UsageCategory = Lists;
+ApplicationArea = All;
+CardPageId = "Honda Vehicle Model Card";
+
+Page 51004 Honda Vehicle Variant List
+Show:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Model Code
+Code
+Description
+Model Year
+Fuel Type
+Transmission Type
+Color Description
+Unit Price
+Active
+Blocked
+
+Allow editing when opened from the Vehicle Model Card.
+
+Step 4 — Extend the Standard Contact Table
+Create:
+1 TableExtension 51000 "Honda Contact Ext."
+2 extends Contact
+Do not duplicate standard fields such as Name, Address, Phone No., E-Mail or Salesperson
+Code.
+
+Add These Fields
+Use field numbers from your allocated extension range.
+
+1 Honda Customer Type
+Text[30]
+2 Honda Lead Source
+Enum "Honda Lead Source"
+3 Honda Preferred Dealer Code Code[20]
+4 Honda Product Category
+Enum "Honda Product Category"
+5 Honda Preferred Model Code
+Code[20]
+6 Honda Preferred Model Desc. Text[100]
+7 Honda Province
+Text[50]
+8 Honda District
+Text[50]
+9 Honda Municipality
+Text[50]
+10 Honda Citizenship No.
+Text[30]
+11 Honda Last Attempted Date
+Date
+12 Honda Next Task Date
+Date
+13 Honda Contact Preference
+Enum "Honda Contact Preference"
+14 Honda Consent to Contact
+Boolean
+15 Honda Consent Date
+Date
+16 Honda Do Not Contact
+Boolean
+Use a recognizable prefix because these fields extend a standard table.
+
+Table Relations
+Preferred Dealer Code
+Relate it to an active, unblocked Honda Dealer.
+Conceptually:
+1
+2
+3
+
+TableRelation = "Honda Dealer".Code
+where(Active = const(true),
+Blocked = const(false));
+
+Preferred Model Code
+Relate it to active, unblocked vehicle models.
+The model lookup should be filtered by the Contact’s selected Product Category when
+possible.
+
+Contact Validation Rules
+Preferred Dealer Code
+When a dealer is selected:
+1. Retrieve the Dealer with Get.
+2. Verify that it is active.
+
+3. Verify that it is not blocked.
+4. Raise an error if it cannot be used.
+
+Preferred Model Code
+When a model is selected:
+1.
+2.
+3.
+4.
+5.
+6.
+
+Retrieve the model with Get.
+Verify that it is active.
+Verify that it is not blocked.
+Copy Description to Honda Preferred Model Desc.
+Copy Product Category when the Contact’s category is blank.
+Error if the selected model conflicts with an already selected category.
+
+When Preferred Model Code is cleared:
+1
+
+Clear Preferred Model Description
+
+Consent Rules
+When Honda Consent to Contact changes to true:
+1 Set Honda Consent Date to WorkDate
+2 Set Honda Do Not Contact to false
+When Honda Do Not Contact changes to true:
+1 Set Honda Consent to Contact to false
+2 Block creation of new follow-up activities
+Do not automatically delete old activities or communication history.
+
+Next Task Date
+Do not directly calculate it from WorkDate in the Contact trigger. Later, the Activity
+Management process will update it based on the earliest open activity.
+
+Step 5 — Extend the Standard Contact Pages
+Create:
+1
+2
+3
+4
+5
+
+PageExtension 51000 "Honda Contact Card Ext."
+extends "Contact Card"
+PageExtension 51001 "Honda Contact List Ext."
+extends "Contact List"
+
+Contact Card Extension
+Add these groups:
+
+Honda CRM
+Show:
+•
+•
+•
+•
+•
+•
+•
+•
+
+Honda Customer Type
+Honda Lead Source
+Salesperson Code
+Honda Preferred Dealer Code
+Honda Product Category
+Honda Preferred Model Code
+Honda Preferred Model Desc.
+Honda Contact Preference
+
+Honda Address Information
+Show:
+•
+•
+•
+•
+
+Honda Province
+Honda District
+Honda Municipality
+Honda Citizenship No.
+
+Honda Follow-up
+Show:
+•
+•
+•
+•
+•
+•
+
+Honda Last Attempted Date
+Honda Next Task Date
+Date of Last Interaction, if available on the standard record/page
+Honda Consent to Contact
+Honda Consent Date
+Honda Do Not Contact
+
+The Future Motors manual’s Contact process includes personal and location details,
+salesperson assignment, last interaction, last attempted date and next-task date. These
+fields inform this learning extension’s Contact design. [Future Mot...s Manual 2 | Word]
+
+Add Contact Actions
+Add an action group named:
+1 Honda CRM
+Actions:
+
+1.
+2.
+3.
+4.
+5.
+6.
+
+Check Possible Duplicates
+Create Honda Opportunity
+Honda Opportunities
+Create Follow-up
+Honda Activities
+Honda Activity History
+
+Contact List Extension
+Add columns:
+•
+•
+•
+•
+•
+•
+•
+
+Honda Lead Source
+Honda Preferred Dealer Code
+Honda Product Category
+Honda Preferred Model Code
+Honda Last Attempted Date
+Honda Next Task Date
+Honda Do Not Contact
+
+Use a StyleExpr to highlight:
+•
+•
+•
+
+Overdue next tasks
+Contacts marked Do Not Contact
+Contacts without a Salesperson Code
+
+Do not place complicated business logic inside StyleExpr. Calculate simple Boolean style
+variables when the record changes.
+
+Step 6 — Create Duplicate-Contact Detection
+Create:
+1 Codeunit 51000 "Honda CRM Management"
+Add a procedure such as:
+1
+2
+3
+
+procedure CheckContactDuplicates(
+Contact: Record Contact;
+ShowResults: Boolean): Boolean
+
+Duplicate Rules
+A Contact is a possible duplicate when another Contact has:
+
+•
+•
+
+The same nonblank mobile/phone number, or
+The same nonblank email address
+
+The current Contact must be excluded.
+
+Required Logic
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+
+Copy the Contact record into a separate record variable.
+Reset filters.
+Exclude the current Contact No.
+Search first by Phone No.
+Search separately by E-Mail.
+Avoid showing the same duplicate twice.
+Return whether at least one possible duplicate exists.
+If ShowResults is true, open a filtered Contact List.
+
+Important Behavior
+Duplicate detection is a warning, not a hard error, in Part 1.
+Reasons include:
+•
+•
+•
+
+Family members may share a phone number.
+Company contacts may use a shared address.
+A valid duplicate may represent a separate person or business relationship.
+
+The user must still review existing records before continuing.
+
+Concept Check
+Why can’t Get be used to find duplicate phone numbers?
+Expected answer:
+•
+•
+•
+•
+
+Get reads a record using its primary key.
+Phone No. is not the Contact primary key.
+There may be multiple Contacts with the same phone number.
+SetRange, SetFilter, FindFirst or FindSet are required.
+
+Step 7 — Extend the Standard Opportunity Table
+Create:
+1
+2
+
+TableExtension 51001 "Honda Opportunity Ext."
+extends Opportunity
+
+Add Fields
+1 Honda Dealer Code
+2 Honda Product Category
+3 Honda CRM Stage
+Stage"
+4 Honda Result
+5 Honda Estimated Budget
+6 Honda Expected Purchase Date
+7 Honda Finance Required
+8 Honda Lost Reason
+9 Honda Lost Reason Remarks
+10 Honda Competitor Name
+11 Honda Ready for Quote Date
+12 Honda Closed Date
+13 Honda Last Activity Date
+14 Honda Next Activity Date
+15 Honda Primary Model Code
+16 Honda Primary Variant Code
+17 Honda Primary Model Desc.
+
+Code[20]
+Enum "Honda Product Category"
+Enum "Honda Opportunity CRM
+Enum "Honda Opportunity Result"
+Decimal
+Date
+Boolean
+Enum "Honda Lost Reason"
+Text[250]
+Text[100]
+Date
+Date
+Date
+Date
+Code[20]
+Code[20]
+Text[100]
+
+Table Relations
+Honda Dealer Code
+Relate to active and unblocked Honda Dealers.
+
+Honda Primary Model Code
+Relate to active and unblocked Honda Vehicle Models.
+
+Honda Primary Variant Code
+Relate to variants where:
+1
+2
+3
+
+Model Code = Honda Primary Model Code
+Active = true
+Blocked = false
+
+Opportunity Validation Rules
+Estimated Budget
+1
+
+Must be greater than or equal to zero
+
+Expected Purchase Date
+When entered on an open opportunity:
+1 Must not be before the opportunity creation date
+Do not compare only against WorkDate because historical data migration may eventually
+require controlled exceptions.
+
+Lost Reason
+Normally blank unless Result is Lost.
+
+Lost Reason Remarks
+Mandatory if Lost Reason is Other.
+
+Primary Variant Code
+Cannot be entered until Primary Model Code is present.
+When a model is changed:
+•
+•
+•
+
+Clear an incompatible variant.
+Refresh the model description.
+Align Product Category with the selected model.
+
+Step 8 — Create the Opportunity Vehicle Line
+Create:
+1 Table 51003 "Honda Opp. Vehicle Line"
+This table stores one or more vehicle interests under an Opportunity.
+
+Fields
+1 1
+Opportunity No.
+2 2
+Line No.
+3 3
+Model Code
+4 4
+Model Description
+5 5
+Variant Code
+6 6
+Variant Description
+7 7
+Product Category
+8 8
+Preferred Color
+9 9
+Quantity
+10 10 Estimated Unit Price
+11 11 Estimated Line Amount
+
+Code[20]
+Integer
+Code[20]
+Text[100]
+Code[20]
+Text[100]
+Enum "Honda Product Category"
+Text[50]
+Decimal
+Decimal
+Decimal
+
+12
+13
+
+12
+13
+
+Primary Interest
+Remarks
+
+Boolean
+Text[250]
+
+Primary Key
+1
+
+Opportunity No., Line No.
+
+Table Relations
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+Opportunity No.
+→ Opportunity."No."
+Model Code
+→ Honda Vehicle Model.Code
+Variant Code
+→ Honda Vehicle Variant.Code
+where(Model Code = field(Model Code))
+
+Auto-fill Logic
+When Model Code is validated:
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+
+Use Get to read the model.
+Check Active.
+Check Blocked.
+Copy Description.
+Copy Product Category.
+Copy Starting Price to Estimated Unit Price.
+Clear Variant Code and Variant Description.
+Recalculate Estimated Line Amount.
+
+When Variant Code is validated:
+1.
+2.
+3.
+4.
+5.
+6.
+
+Use its compound primary key: Model Code and Variant Code.
+Check Active.
+Check Blocked.
+Copy Variant Description.
+Replace Estimated Unit Price with Variant Unit Price when it is not zero.
+Recalculate Estimated Line Amount.
+
+When Quantity or Estimated Unit Price changes:
+1 Estimated Line Amount = Quantity × Estimated Unit Price
+Set the default Quantity to 1.
+
+Primary Interest Rule
+Only one line per Opportunity may have Primary Interest = true.
+When a line is marked as primary:
+1.
+2.
+3.
+4.
+
+Filter other lines by Opportunity No.
+Exclude the current Line No.
+Set their Primary Interest to false.
+Copy the primary Model and Variant back to the Opportunity extension fields.
+
+Concept Check
+Explain why vehicle interests are lines instead of adding Model 1, Model 2 and Model 3
+fields to Opportunity.
+Expected understanding:
+•
+•
+•
+•
+•
+
+The number of interests is not fixed.
+Lines are easier to filter and report.
+New interests do not require adding new fields.
+Header/line design is normalized.
+One line can be marked as primary.
+
+Step 9 — Create Opportunity Vehicle Pages
+Create:
+1
+2
+
+Page 51005 "Honda Opp. Vehicle Subform"
+Page 51006 "Honda Opp. Vehicle Lines"
+
+Subform
+Page type:
+1 ListPart
+Show:
+•
+•
+•
+•
+•
+•
+•
+
+Model Code
+Model Description
+Variant Code
+Variant Description
+Product Category
+Preferred Color
+Quantity
+
+•
+•
+•
+•
+
+Estimated Unit Price
+Estimated Line Amount
+Primary Interest
+Remarks
+
+Link it to the Opportunity Card using:
+1
+
+Opportunity No. = Opportunity."No."
+
+Vehicle Lines Page
+Create a searchable or navigable list for administrators and testing.
+Do not expose it as the primary user-entry page if all normal entry should happen from the
+Opportunity Card.
+
+Step 10 — Create CRM Activities
+Create:
+1
+
+Table 51004 "Honda CRM Activity"
+
+Fields
+1 1
+Entry No.
+2 2
+Contact No.
+3 3
+Opportunity No.
+4 4
+Activity Type
+5 5
+Subject
+6 6
+Activity Date
+7 7
+Due Date
+8 8
+Due Time
+9 9
+Status
+10 10 Salesperson Code
+11 11 Dealer Code
+12 12 Notes
+13 13 Outcome
+14 14 Created Date-Time
+15 15 Created By
+16 16 Completed Date-Time
+17 17 Completed By
+18 18 Cancelled Date-Time
+19 19 Cancelled By
+
+Integer
+Code[20]
+Code[20]
+Enum "Honda CRM Activity Type"
+Text[100]
+Date
+Date
+Time
+Enum "Honda CRM Activity Status"
+Code[20]
+Code[20]
+Text[250]
+Text[250]
+DateTime
+Code[50]
+DateTime
+Code[50]
+DateTime
+Code[50]
+
+20
+
+20
+
+Cancellation Reason
+
+Text[250]
+
+Primary Key
+1 Entry No.
+For Part 1, Entry No. may be assigned safely by a controlled helper procedure with table
+locking.
+In Part 2, replace this with the final numbering/setup design if using a Code-based Activity
+No.
+
+Secondary Keys
+Create keys supporting:
+1
+2
+3
+4
+
+Contact No., Status, Due Date
+Opportunity No., Status, Due Date
+Salesperson Code, Status, Due Date
+Dealer Code, Status, Due Date
+
+Table Relations
+1 Contact No.
+2
+→ Contact."No."
+3
+4 Opportunity No.
+5
+→ Opportunity."No."
+6
+7 Salesperson Code
+8
+→ Salesperson/Purchaser.Code
+9
+10 Dealer Code
+11
+→ Honda Dealer.Code
+
+Activity Creation Rules
+•
+•
+•
+•
+•
+•
+•
+•
+
+Contact No. is mandatory.
+Activity Type is mandatory.
+Subject is mandatory.
+Activity Date defaults to WorkDate.
+Due Date cannot be before Activity Date.
+Status defaults to Open.
+Created Date-Time defaults to CurrentDateTime.
+Created By defaults to UserId.
+
+•
+•
+
+If Opportunity No. is supplied, its Contact must match Activity Contact No.
+A new activity cannot be created when the Contact has Honda Do Not Contact =
+true, except with an explicit manager-level override planned for a later part.
+
+Completed Activity Rules
+A completed activity becomes historical.
+When completing:
+1. Confirm Status is Open.
+2. Require Outcome.
+3. Set Status to Completed.
+4. Set Completed Date-Time.
+5. Set Completed By.
+6. Update Contact’s last interaction date where appropriate.
+7. Update Honda Last Attempted Date.
+8. Update Opportunity Honda Last Activity Date.
+9. Recalculate the next open activity date for the Contact.
+10. Recalculate the next open activity date for the Opportunity.
+11. Prevent normal editing of completion stamps.
+
+Cancelled Activity Rules
+When cancelling:
+1.
+2.
+3.
+4.
+5.
+6.
+
+Confirm Status is Open.
+Require Cancellation Reason.
+Set Status to Cancelled.
+Set Cancelled Date-Time.
+Set Cancelled By.
+Recalculate next activity dates.
+
+Do not delete activities merely because they were cancelled.
+
+Step 11 — Create the Activity Pages
+Create:
+1
+2
+3
+
+Page 51007 "Honda CRM Activity Card"
+Page 51008 "Honda CRM Activity List"
+Page 51009 "Honda Contact Activities Part"
+
+4
+
+Page 51010 "Honda Opportunity Activities Part"
+
+Activity Card
+Groups:
+•
+•
+•
+•
+•
+•
+•
+
+General
+Schedule
+Related Records
+Assignment
+Completion
+Cancellation
+Notes
+
+Activity List
+Show:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Entry No.
+Contact No.
+Opportunity No.
+Activity Type
+Subject
+Activity Date
+Due Date
+Due Time
+Status
+Salesperson Code
+Dealer Code
+
+Use styling for:
+•
+•
+•
+•
+
+Overdue open activities
+Activities due today
+Completed activities
+Cancelled activities
+
+Activity FactBoxes
+Contact Activities Part:
+1 SubPageLink = Contact No. = Contact."No."
+Opportunity Activities Part:
+1
+
+SubPageLink = Opportunity No. = Opportunity."No."
+
+Step 12 — Add Activity Procedures to the Management
+Codeunit
+In:
+1 Codeunit 51000 "Honda CRM Management"
+Create procedures similar to:
+1 procedure CreateContactActivity(Contact: Record Contact)
+1 procedure CreateOpportunityActivity(Opportunity: Record
+Opportunity)
+1 procedure CompleteActivity(var Activity: Record "Honda CRM
+Activity")
+1 procedure CancelActivity(var Activity: Record "Honda CRM
+Activity")
+1 procedure UpdateContactNextTaskDate(ContactNo: Code[20])
+1 procedure UpdateOpportunityActivityDates(OpportunityNo:
+Code[20])
+
+Update Next Task Date Logic
+For a Contact:
+1.
+2.
+3.
+4.
+5.
+6.
+
+Filter activities by Contact No.
+Filter Status to Open.
+Sort by Due Date and Due Time.
+Use FindFirst.
+If found, copy Due Date to Contact’s Honda Next Task Date.
+If none is found, clear Honda Next Task Date.
+
+Use the same idea for Opportunity Honda Next Activity Date.
+
+Concept Check
+Why should FindFirst be used rather than FindSet when retrieving only the earliest open
+activity?
+Expected understanding:
+•
+•
+•
+•
+
+Only one result is needed.
+The current key determines which record is first.
+FindSet is intended when iterating over a record set.
+Correct key selection is important for predictable performance.
+
+Step 13 — Create Opportunity Status History
+Create:
+1
+
+Table 51005 "Honda Opp. Status Entry"
+
+Fields
+1 1
+Entry No.
+Integer
+2 2
+Opportunity No.
+Code[20]
+3 3
+Old CRM Stage
+Enum "Honda Opportunity CRM Stage"
+4 4
+New CRM Stage
+Enum "Honda Opportunity CRM Stage"
+5 5
+Old Result
+Enum "Honda Opportunity Result"
+6 6
+New Result
+Enum "Honda Opportunity Result"
+7 7
+Change Date-Time
+DateTime
+8 8
+Changed By
+Code[50]
+9 9
+Reason
+Text[100]
+10 10 Comment
+Text[250]
+11 11 Sales Cycle Code
+Code[10]
+12 12 Sales Cycle Stage
+Integer
+Check the actual standard field types in your Business Central symbols before finalizing the
+last two field types.
+
+Primary Key
+1
+
+Entry No.
+
+Behavior
+•
+•
+•
+•
+•
+
+Entries are inserted by the management codeunit.
+Users cannot insert them manually.
+Users cannot modify or delete them.
+Every controlled CRM-stage or result change creates an entry.
+The table must store old and new values as historical facts.
+
+Create:
+1 Page 51011 "Honda Opp. Status Entries"
+Set:
+1
+2
+3
+
+InsertAllowed = false;
+ModifyAllowed = false;
+DeleteAllowed = false;
+
+Step 14 — Extend the Opportunity Pages
+Create:
+1 PageExtension 51002 "Honda Opportunity Card Ext."
+2 extends "Opportunity Card"
+3
+4 PageExtension 51003 "Honda Opportunity List Ext."
+5 extends "Opportunity List"
+The exact standard page names may differ by Business Central version. Verify them through
+downloaded symbols before coding.
+
+Opportunity Card Extension
+Add groups:
+
+Honda Automotive CRM
+Show:
+•
+•
+•
+•
+•
+•
+•
+
+Honda Dealer Code
+Honda Product Category
+Honda CRM Stage
+Honda Result
+Honda Estimated Budget
+Honda Expected Purchase Date
+Honda Finance Required
+
+Vehicle Interest
+Add the Honda Opp. Vehicle Subform.
+
+Activity Information
+Show:
+•
+•
+
+Honda Last Activity Date
+Honda Next Activity Date
+
+Add the Opportunity Activities Part as a FactBox or page part.
+
+Closing Information
+Show:
+•
+•
+
+Honda Lost Reason
+Honda Lost Reason Remarks
+
+•
+•
+•
+
+Honda Competitor Name
+Honda Ready for Quote Date
+Honda Closed Date
+
+Closing fields should be non-editable during ordinary data entry. The management actions
+should populate them.
+
+Add Actions
+Create an action group:
+1 Honda CRM
+Actions:
+1. Activate Honda CRM
+2. Move to Next CRM Stage
+3. Create Follow-up
+4. Complete Current Activity
+5. Show Honda Activities
+6. Mark Ready for Quotation
+7. Mark Lost
+8. Cancel Opportunity
+9. Show Status History
+10. Show Contact
+11. Check Contact Duplicates
+
+Step 15 — Create Opportunity from Contact
+Add this procedure:
+1
+2
+3
+
+procedure CreateOpportunityFromContact(
+Contact: Record Contact;
+var Opportunity: Record Opportunity)
+
+Required Logic
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+
+Require Contact No.
+Require Contact Name.
+Require at least Phone No. or E-Mail.
+Check possible duplicates.
+Require Salesperson Code.
+Require Honda Preferred Dealer Code.
+Verify the dealer is active and not blocked.
+
+8. Create a new standard Opportunity.
+9. Link it to the Contact using the correct standard fields and standard APIs for your BC
+version.
+10. Copy Salesperson Code.
+11. Copy Honda Dealer Code.
+12. Copy Honda Product Category.
+13. Set Honda CRM Stage to New.
+14. Set Honda Result to Open.
+15. Copy the expected purchase information when available.
+16. If the Contact has a Preferred Model, create the first Opportunity Vehicle Line.
+17. Mark that line as Primary Interest.
+18. Insert a status-history entry.
+19. Open the Opportunity Card.
+
+Important
+Do not manually recreate functionality already provided by standard Business Central
+Opportunity-management codeunits.
+Before writing the procedure:
+1.
+2.
+3.
+4.
+5.
+6.
+
+Inspect the standard Opportunity table.
+Inspect the standard Opportunity Card actions.
+Inspect the standard relationship-management codeunits.
+Identify the supported standard procedure for creating an Opportunity.
+Use the standard API where available.
+Add your custom automotive fields after the standard record is created.
+
+The documented Future Motors flow creates an Opportunity from a Contact and then
+captures description, Contact information, salesperson, priority and sales-cycle information.
+[Future Mot...s Manual 2 | Word]
+
+Step 16 — Sales Cycle and Activation
+The user must select a valid standard Sales Cycle Code on the Opportunity before activating
+the first CRM stage.
+Create:
+1 procedure ActivateHondaOpportunity(var Opportunity: Record
+Opportunity)
+
+Required Validations
+Before activation:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Opportunity must be open.
+Contact No. must exist.
+Salesperson Code must exist.
+Honda Dealer Code must exist.
+Sales Cycle Code must exist.
+At least one vehicle-interest line must exist.
+Exactly one line should be the Primary Interest.
+Estimated Budget cannot be negative.
+Expected Purchase Date must be valid.
+
+Required Processing
+1. Use the supported standard Business Central process to activate the first Sales Cycle
+Stage.
+2. Set Honda CRM Stage to Initial Contact.
+3. Keep Honda Result as Open.
+4. Insert a status-history entry.
+5. Create an initial follow-up activity due according to a simple Part 1 rule, such as
+WorkDate plus two days.
+6. Show a success message.
+The Future Motors process explicitly requires choosing a Sales Cycle Code and activating the
+first stage, after which the Sales Cycle Stage is updated. [Future Mot...s Manual 2 | Word]
+
+Do Not
+•
+•
+•
+•
+
+Update standard opportunity internals by direct assignment if a standard
+management procedure exists.
+Hardcode a Sales Cycle Code in AL.
+Activate an opportunity without vehicle-interest information.
+allow activation twice.
+
+Step 17 — Controlled CRM Stage Movement
+Create:
+1 procedure MoveToNextCRMStage(var Opportunity: Record
+Opportunity)
+Part 1 stages:
+
+1
+2
+3
+4
+5
+6
+
+New
+→ Initial Contact
+→ Needs Analysis
+→ Vehicle Selection
+→ Test Drive
+→ Quotation Ready
+
+Transition Rules
+New → Initial Contact
+Require:
+•
+•
+•
+•
+•
+
+Contact
+Salesperson
+Dealer
+Sales Cycle Code
+Vehicle-interest line
+
+Normally handled by Activate Honda CRM.
+
+Initial Contact → Needs Analysis
+Require:
+•
+•
+•
+
+At least one completed Phone Call, Meeting or Showroom Visit activity
+Estimated Budget
+Expected Purchase Date
+
+Needs Analysis → Vehicle Selection
+Require:
+•
+•
+
+At least one vehicle-interest line
+One Primary Interest line
+
+Vehicle Selection → Test Drive
+Require:
+•
+•
+
+Primary Model Code
+Open or completed Test Drive Request activity
+
+Part 1 does not implement the full booking calendar. It only records the request activity.
+
+Test Drive → Quotation Ready
+Require:
+•
+
+Completed Test Drive Request activity, or
+
+•
+
+A manager-approved reason for skipping the drive
+
+The full test-drive booking and conflict-management process belongs to Part 2.
+
+Every Transition Must
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+
+Validate current stage.
+Validate required data.
+Save old values.
+update the new stage.
+Modify the Opportunity.
+Insert a history entry.
+Raise the integration event added later.
+Complete in one transaction.
+
+Step 18 — Mark Ready for Quotation
+Create:
+1 procedure MarkReadyForQuotation(var Opportunity: Record
+Opportunity)
+
+Required Validations
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Opportunity is open.
+Opportunity is at Quotation Ready stage.
+Contact exists.
+Dealer exists.
+Salesperson exists.
+Primary vehicle interest exists.
+Estimated Budget is greater than zero.
+Expected Purchase Date exists.
+No overdue mandatory activity remains open.
+Lost Reason is blank.
+
+Processing
+1.
+2.
+3.
+4.
+5.
+
+Set Honda Result to Ready for Quotation.
+Set Honda Ready for Quote Date to WorkDate.
+Insert status history.
+Raise an integration event.
+Do not create a Sales Quote yet.
+
+Part 3 will subscribe to or call this process to create an automotive Vehicle Sales Quote.
+
+Step 19 — Mark Opportunity as Lost
+Create:
+1
+2
+3
+4
+5
+
+procedure MarkOpportunityLost(
+var Opportunity: Record Opportunity;
+LostReason: Enum "Honda Lost Reason";
+LostRemarks: Text[250];
+CompetitorName: Text[100])
+
+Rules
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Lost Reason is mandatory.
+Remarks are mandatory when Lost Reason is Other.
+Competitor Name should be requested when the reason is Competitor.
+An already lost or cancelled Opportunity cannot be lost again.
+Open activities must be cancelled with a system-generated explanation.
+Set Closed Date.
+Set Result to Lost.
+Insert status-history entry.
+Do not delete opportunity lines or activity history.
+
+Step 20 — Cancel Opportunity
+Create:
+1
+2
+3
+
+procedure CancelHondaOpportunity(
+var Opportunity: Record Opportunity;
+Reason: Text[250])
+
+Rules
+•
+•
+•
+•
+•
+
+Cancellation reason is mandatory.
+Ready-for-quotation or completed Opportunities should not be cancelled through
+this basic action.
+Open activities must be cancelled.
+Set Result to Cancelled.
+Set Closed Date.
+
+•
+
+Insert status history.
+
+Concept Check
+What is the difference between Lost and Cancelled?
+Suggested interpretation:
+•
+•
+
+Lost: a genuine sales opportunity existed, but the customer did not proceed with this
+business.
+Cancelled: the record should no longer continue for an administrative or process
+reason.
+
+Examples of cancellation:
+•
+•
+•
+•
+
+Duplicate opportunity
+Created by mistake
+Invalid enquiry
+Opportunity merged with another record
+
+Step 21 — Add Integration Events
+In Honda CRM Management, declare the following events.
+1
+2
+3
+4
+5
+6
+1
+2
+3
+4
+5
+1
+2
+3
+4
+5
+6
+7
+
+[IntegrationEvent(false, false)]
+local procedure OnAfterHondaOpportunityCreated(
+Contact: Record Contact;
+var Opportunity: Record Opportunity)
+begin
+end;
+[IntegrationEvent(false, false)]
+local procedure OnAfterHondaOpportunityActivated(
+var Opportunity: Record Opportunity)
+begin
+end;
+[IntegrationEvent(false, false)]
+local procedure OnAfterHondaCRMStageChanged(
+var Opportunity: Record Opportunity;
+OldStage: Enum "Honda Opportunity CRM Stage";
+NewStage: Enum "Honda Opportunity CRM Stage")
+begin
+end;
+
+1 [IntegrationEvent(false, false)]
+2 local procedure OnAfterHondaActivityCompleted(
+3
+var Activity: Record "Honda CRM Activity")
+4 begin
+5 end;
+1 [IntegrationEvent(false, false)]
+2 local procedure OnAfterHondaOpportunityReadyForQuotation(
+3
+var Opportunity: Record Opportunity)
+4 begin
+5 end;
+Part 1 may include a small subscriber codeunit:
+1 Codeunit 51001 "Honda CRM Event Subscriber"
+Example subscriber:
+•
+•
+
+When an Opportunity is activated, create an initial follow-up activity.
+When an Activity is completed, update last and next activity dates.
+
+The publisher should not know or care how many subscribers exist.
+
+Step 22 — Transaction and Error-Handling Rules
+The following operations must be transaction-safe:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Creating an Opportunity from a Contact
+Creating its initial vehicle-interest line
+Activating the Opportunity
+Creating its initial activity
+Moving CRM stages
+Completing activities
+Cancelling activities
+Marking an Opportunity lost
+Marking an Opportunity ready for quotation
+
+Example
+If Opportunity creation succeeds but inserting the first vehicle line fails, the whole operation
+should fail. The system must not leave an incomplete Opportunity behind.
+Do not add Commit() merely to make intermediate records visible.
+Use Commit() only when there is a specific, reviewed architectural reason.
+
+Step 23 — Permissions
+Create:
+1
+2
+
+PermissionSet 51000 "HONDA CRM USER"
+PermissionSet 51001 "HONDA CRM MANAGER"
+
+HONDA CRM USER
+Allow appropriate access to:
+•
+•
+•
+•
+•
+•
+•
+•
+
+Read Honda dealers
+Read Honda vehicle models
+Read Honda variants
+Read and edit permitted Contact data
+Read and edit permitted Opportunity data
+Insert and update vehicle-interest lines
+Create and complete activities
+Read status history
+
+Do not allow users to:
+•
+•
+•
+
+Modify status-history entries
+Delete completed activities
+Modify blocked master records without permission
+
+HONDA CRM MANAGER
+Add permission to:
+•
+•
+•
+•
+•
+•
+•
+
+Maintain dealers
+Maintain models and variants
+View all opportunities
+Handle exceptional transitions
+Cancel activities on behalf of users
+Review duplicates
+View complete status history
+
+Actual record-level security by salesperson will be introduced in a later part. A permission
+set controls object access but does not, by itself, guarantee that users see only their own
+records.
+
+Step 24 — Data Classification
+Apply meaningful DataClassification values.
+Suggested examples:
+1 Name, address, email, phone:
+2 CustomerContent
+3
+4 Citizenship number:
+5 EndUserIdentifiableInformation
+6
+7 User ID and completed-by fields:
+8 EndUserIdentifiableInformation
+9
+10 Status entry and system timestamps:
+11 SystemMetadata or CustomerContent,
+12 depending on the field's purpose
+13
+14 Dealer and model setup:
+15 CustomerContent
+Do not place customer phone numbers, email addresses, citizenship details or free-text
+activity notes into telemetry.
+
+Step 25 — Manual Test Data
+Create fictional data only.
+
+Dealers
+Create at least:
+1 KTM-SHOWROOM
+2 LTP-3S
+3 PKR-SHOWROOM
+Make:
+•
+•
+
+Two active
+One blocked or inactive
+
+Vehicle Models
+Create at least:
+
+•
+•
+•
+•
+
+Two motorcycles
+Two scooters
+Two automobiles
+One power product
+
+Variants
+Create at least two variants for three different models.
+
+Salespersons
+Create at least two fictional Salesperson/Purchaser records.
+
+Contacts
+Create at least five fictional Contacts with a mixture of:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Walk-in source
+Website source
+Referral source
+Phone source
+Different preferred models
+Different dealers
+One duplicate phone number
+One duplicate email address
+One Do Not Contact record
+
+How to Test Part 1
+Complete every test before marking the task as done.
+
+Master-Data Tests
+Test 1 — Dealer Creation
+•
+•
+
+Create an active dealer.
+Confirm the dealer appears in the Contact lookup.
+
+Test 2 — Blocked Dealer
+•
+•
+•
+
+Block a dealer.
+Try selecting it on a new Contact or Opportunity.
+The system must reject it.
+
+Test 3 — Model and Variant Relationship
+•
+•
+•
+
+Create a model with two variants.
+Select the model on an Opportunity line.
+Confirm only variants belonging to the model are available.
+
+Test 4 — Auto-fill
+•
+•
+•
+•
+
+Select a model.
+Confirm description, category and starting price are copied.
+Select a variant.
+Confirm variant description and price are copied.
+
+Contact Tests
+Test 5 — Create Contact
+Create a Contact with:
+•
+•
+•
+•
+•
+•
+•
+•
+
+Name
+Phone
+Email
+Lead Source
+Salesperson
+Preferred Dealer
+Product Category
+Preferred Model
+
+Confirm the model description is populated.
+
+Test 6 — Duplicate Phone
+•
+•
+•
+
+Create another Contact using the same phone number.
+Run Check Possible Duplicates.
+Confirm the existing Contact is shown.
+
+Test 7 — Duplicate Email
+•
+•
+
+Create a Contact with an existing email.
+Confirm it is detected.
+
+Test 8 — Valid Shared Value
+•
+•
+
+Continue after viewing the duplicate warning.
+Confirm the system allows the user to proceed.
+
+Test 9 — Do Not Contact
+•
+•
+•
+
+Mark a Contact as Do Not Contact.
+Try creating a follow-up activity.
+Confirm the system blocks it.
+
+Opportunity Tests
+Test 10 — Create Opportunity
+•
+•
+•
+•
+
+Open a valid Contact.
+Choose Create Honda Opportunity.
+Confirm the Opportunity is created and linked to the Contact.
+Confirm dealer, salesperson, category and preferred model are copied.
+
+Test 11 — Missing Salesperson
+•
+•
+•
+
+Create a Contact without a Salesperson.
+Try creating or activating an Opportunity.
+Confirm a clear validation error is shown.
+
+Test 12 — Missing Vehicle Interest
+•
+•
+•
+
+Create an Opportunity without vehicle lines.
+Try activation.
+Confirm activation is blocked.
+
+Test 13 — Primary Interest
+•
+•
+•
+•
+
+Add three vehicle-interest lines.
+Mark the second as Primary.
+Confirm the other lines are no longer Primary.
+Confirm primary model information is copied to the Opportunity.
+
+Test 14 — Sales Cycle Activation
+•
+•
+•
+•
+•
+•
+
+Select a valid Sales Cycle Code.
+Activate Honda CRM.
+Confirm the standard first Sales Cycle Stage is activated.
+Confirm Honda CRM Stage becomes Initial Contact.
+Confirm an initial follow-up is created.
+Confirm a status-history entry is inserted.
+
+Activity Tests
+Test 15 — Create Follow-up
+•
+•
+•
+
+Create a follow-up Activity from the Contact.
+Confirm Contact No., Salesperson and Dealer are populated.
+Confirm Status is Open.
+
+Test 16 — Invalid Due Date
+•
+•
+
+Enter a Due Date earlier than Activity Date.
+Confirm an error is shown.
+
+Test 17 — Complete Activity
+•
+•
+•
+•
+•
+
+Complete an open Activity.
+Enter an outcome.
+Confirm completion date, time and user are stamped.
+Confirm Contact Last Attempted Date is updated.
+Confirm the next open task is recalculated.
+
+Test 18 — Complete Twice
+•
+•
+
+Try completing the same Activity again.
+Confirm the system blocks it.
+
+Test 19 — Cancel Activity
+•
+•
+•
+
+Cancel an open Activity.
+Leave Cancellation Reason blank.
+Confirm the system requires a reason.
+
+Test 20 — Historical Protection
+•
+•
+•
+•
+
+Try editing a completed Activity’s completion fields.
+Confirm the fields are protected.
+Try deleting the completed Activity.
+Confirm deletion is prevented.
+
+Stage Tests
+Test 21 — Initial Contact to Needs Analysis
+•
+•
+•
+
+Attempt movement without a completed Activity.
+Confirm it fails.
+Complete the required Activity.
+
+•
+•
+
+Enter Estimated Budget and Expected Purchase Date.
+Confirm progression succeeds.
+
+Test 22 — Vehicle Selection
+•
+•
+•
+•
+
+Attempt progression without a Primary Interest line.
+Confirm it fails.
+Mark one line as Primary.
+Confirm progression succeeds.
+
+Test 23 — Test Drive Stage
+•
+•
+•
+•
+
+Attempt to move to Test Drive without a Test Drive Request.
+Confirm the validation behavior.
+Create the request.
+Confirm progression succeeds.
+
+Test 24 — Ready for Quotation
+•
+•
+•
+•
+
+Complete the required Test Drive Activity.
+Move the Opportunity to Quotation Ready.
+Mark it Ready for Quotation.
+Confirm date and status-history entry are created.
+
+Test 25 — Lost Opportunity
+•
+•
+•
+•
+•
+•
+
+Try marking an Opportunity lost without a reason.
+Confirm an error.
+Select Competitor without a competitor name.
+Confirm the appropriate validation.
+Complete the loss process.
+Confirm open activities are cancelled and history is retained.
+
+Definition of Done
+Part 1 is complete only when:
+•
+•
+•
+•
+•
+•
+
+All objects compile without warnings that indicate design problems.
+Standard Business Central Contact and Opportunity processes remain functional.
+Master pages are searchable.
+Table relations display correctly.
+Blocked masters cannot be selected.
+Contact duplicate detection works for phone and email.
+
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Opportunity creation uses Contact information.
+Opportunity vehicle lines work.
+Exactly one vehicle line can be Primary.
+Sales-cycle activation works.
+Activity creation, completion and cancellation work.
+Contact and Opportunity follow-up dates are updated.
+CRM stage transitions are validated.
+Status history is permanent and read-only.
+Relevant actions are promoted and understandable.
+Permission sets compile and can be assigned.
+All 25 manual tests have been executed.
+No real customer information exists in the repository.
+No credentials or environment URLs have been committed.
+
+What to Submit
+Git
+Push your code to:
+1
+
+feature/honda-crm-part1-arun
+
+Include
+1
+2
+3
+4
+
+src/
+README.md
+docs/Part-1-Test-Results.md
+docs/Part-1-Learning-Notes.md
+
+README Contents
+Include:
+•
+•
+•
+•
+•
+•
+•
+•
+
+Project purpose
+Business flow
+Prerequisites
+Object range
+Objects created
+Standard objects extended
+Setup/demo-data steps
+Testing instructions
+
+•
+•
+
+Known limitations
+Future Part 2 scope
+
+Test Results
+For every acceptance test, record:
+1 Test No.:
+2 Test Name:
+3 Test Data:
+4 Expected Result:
+5 Actual Result:
+6 Pass/Fail:
+7 Screenshot or Notes:
+Do not include screenshots containing personal information, credentials or environment
+secrets.
+
+Learning Note to Submit
+Write the answers in your own words.
+
+Question 1
+Why did you extend the standard Contact and Opportunity tables instead of creating
+custom Lead and Opportunity tables?
+
+Question 2
+What is the difference between:
+1
+2
+3
+4
+5
+
+Contact
+Opportunity
+Vehicle Interest Line
+CRM Activity
+Status History Entry
+
+Question 3
+Why is Get suitable for retrieving one selected Vehicle Model, while SetRange and FindSet
+are required for duplicate detection or activity processing?
+
+Question 4
+Why should CRM stage changes be performed through a management codeunit instead of
+allowing users to directly edit the stage field?
+
+Question 5
+Why is a status-history entry stored rather than implemented as a FlowField?
+
+Question 6
+Why should completed and cancelled activities not be deleted?
+
+Question 7
+Why should only one vehicle-interest line be marked as Primary?
+
+Question 8
+Why should Opportunity creation, first vehicle-line creation and initial history insertion be
+one transaction?
+
+Question 9
+What problem does an Integration Event solve when a future requirement asks the system
+to create a Vehicle Sales Quote after an Opportunity becomes Ready for Quotation?
+
+Question 10
+What is the difference between a permission set and record-level salesperson security?
+
+What You Should Understand After Part 1
+By the end of this assignment, you should be able to explain this clearly:
+A Contact identifies the person or organization with whom the company has a
+relationship. An Opportunity represents one potential sale involving that Contact. Vehicleinterest lines describe the products being considered. Activities represent calls, meetings,
+visits and follow-ups. The sales cycle and CRM stage control how the Opportunity
+progresses. Status-history entries preserve the significant changes that occurred over
+time.
+You should also recognize the main difference from your Student Management project:
+1
+2
+3
+4
+5
+6
+
+Student Management:
+Editable journal → posting → permanent entry
+CRM:
+Master relationship → opportunity lifecycle
+→ repeated activities → controlled transitions → history
+
+The Student project was centered on posting. This CRM project is centered on relationships,
+lifecycle, follow-up and auditability.
+
+

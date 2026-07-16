@@ -1,0 +1,615 @@
+I’ve reviewed Future Motors Process Manual 2.docx. This is much more useful than generic
+public research because it documents a real automotive Business Central implementation
+with CRM, vehicle sales, delivery, recovery, and after-sales service processes. [Future Mot...s
+Manual 2 | Word]
+
+Important security issue
+The manual contains what appears to be a Business Central production URL and training
+credentials. I won’t reproduce them here. If those credentials are still active, they should be
+changed immediately, removed from the manual, and replaced with a placeholder such as:
+1 Environment URL: Provided by IT
+2 Username: Provided by IT
+3 Password: Never store in process manuals
+The revised file should also be stored in a restricted company location rather than a public
+repository. [Future Mot...s Manual 2 | Word]
+
+What the Manual Changes About Our CRM Plan
+My earlier proposal was directionally correct, but the manual shows that the learning
+project should stay closer to standard Business Central Relationship Management.
+The documented Future Motors process already uses:
+1. Contact
+2. Opportunity
+3. Sales Cycle Code
+4. Sales Cycle Stages
+5. Salesperson Code
+6. Priority
+7. Date of Last Interaction
+8. Last Attempted Date
+9. Next Task Date
+10. Vehicle Sales Quote
+11. Vehicle Sales Memo
+12. Vehicle Sales Order
+13. Vehicle Delivery
+14. Vehicle Service Booking
+15. Customer complaints and feedback
+It therefore behaves more like a connected automotive ERP/DMS than an isolated custom
+lead application. [Future Mot...s Manual 2 | Word]
+
+Actual Customer Journey Found in the Manual
+Sales Journey
+1 Contact
+2
+↓
+3 Opportunity
+4
+↓
+5 Activate Sales Cycle Stage
+6
+↓
+7 Vehicle Sales Quote
+8
+↓
+9 Vehicle Sales Memo
+10
+↓
+11 Vehicle Sales Order
+12
+↓
+13 Posted Sales Invoice / Shipment
+14
+↓
+15 Delivery Challan
+16
+↓
+17 Actual Vehicle Delivery
+The Contact record captures customer identity, address, mobile number, email, customer
+type, salesperson, geographic information, citizenship number, interaction dates, and nexttask date. The user then creates an Opportunity, supplies its description, salesperson,
+priority and sales-cycle code, and activates the first sales-cycle stage. [Future Mot...s Manual
+2 | Word]
+The vehicle quote carries considerably more than a standard CRM opportunity. It includes
+finance mode, financing organization, payment mode, discount, accessories, insurance,
+commissions, tax deductions, agent information, and vehicle details including model,
+version, variant, VIN/chassis, engine or motor number, battery number, registration
+number, location, quantity, price, and discount. [Future Mot...s Manual 2 | Word]
+
+Delivery Journey
+After invoicing, the delivery process records whether the customer received the service
+manual, operator manual, blue book, and insurance book. It also records PDI information,
+test-drive information, chassis details, and actual delivery date before posting the vehicle
+delivery. [Future Mot...s Manual 2 | Word]
+
+After-Sales Journey
+1
+
+Service Booking
+
+2
+↓
+3 Vehicle Visit
+4
+↓
+5 Service Order
+6
+↓
+7 Inventory Checklist / PDI
+8
+↓
+9 Customer Complaints
+10
+↓
+11 Service Lines
+12
+↓
+13 Technician Assignment
+14
+↓
+15 Parts Requisition
+16
+↓
+17 Finish Service
+18
+↓
+19 Billing
+20
+↓
+21 Invoice and Gate Pass
+22
+↓
+23 Instant / After-Service Feedback
+24
+↓
+25 Complaint Follow-up
+The service process links the customer with the vehicle through VIN/chassis number and
+registration number. It records booking and arrival times, service advisor, mileage,
+estimated cost, service plan, next-service date, complaints, repair work, technicians, parts,
+external services, billing, feedback, and complaints. [Future Mot...s Manual 2 | Word]
+
+Best Architecture for Your Learning Project
+Based on the manual, I recommend not creating entirely separate custom Contact and
+Opportunity tables in Part 1.
+Instead:
+
+Use Standard BC Objects Where Appropriate
+•
+•
+•
+•
+
+Standard Contact
+Standard Opportunity
+Standard Salesperson/Purchaser
+Standard sales cycles and sales-cycle stages
+
+•
+•
+•
+•
+
+Standard interaction concepts
+Standard Customer
+Standard Sales Header and Sales Line in later parts
+Standard Service Item, if your license and environment provide Service Management
+
+Create Custom Objects for Automotive Requirements
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Vehicle Model
+Vehicle Variant
+Dealer/Branch mapping
+Test Drive Booking
+CRM Follow-up Activity, if standard interactions are insufficient
+Opportunity Vehicle Interest
+Opportunity Stage History
+Lost Opportunity Reason
+Vehicle Delivery Checklist
+Customer Vehicle Profile
+CRM Setup
+Lead assignment rules
+
+This will teach you the most important ERP-development principle:
+Extend standard Business Central whenever the standard functionality represents the
+business concept; create a new custom object only when the concept genuinely does not
+exist or cannot safely satisfy the requirement.
+
+Revised Project Scope
+For the standalone learning extension, we should stop at:
+1 Contact
+2 → Opportunity
+3 → Sales Cycle
+4 → Vehicle Interest
+5 → Follow-up
+6 → Test Drive
+7 → Win/Loss
+8 → CRM History
+We should not include vehicle quotation, invoicing, recovery, service order, or financial
+posting in Parts 1 and 2. The manual proves those processes exist, but including them
+immediately would turn the exercise into a full Dealer Management System rather than a
+focused CRM learning project. [Future Mot...s Manual 2 | Word]
+
+Revised Part 1 Direction
+Part 1 should teach standard CRM objects plus an automotive extension.
+
+Objects to Extend
+Contact Table Extension
+Add fields such as:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Customer Type
+Province
+District
+Municipality
+Citizenship No.
+Preferred Dealer Code
+Preferred Product Category
+Preferred Contact Method
+Last Attempted Date
+Next Task Date
+Consent to Contact
+Lead Source
+
+Some of these fields appear directly in the documented Contact process, while consent and
+preferred-contact fields are recommended improvements for safer CRM handling. [Future
+Mot...s Manual 2 | Word]
+
+Opportunity Table Extension
+Add:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Dealer Code
+Product Category
+Interested Model Code
+Interested Variant Code
+Estimated Budget
+Finance Required
+Expected Purchase Date
+Lost Reason Code
+Competitor
+Test Drive Required
+Test Drive Completed
+
+New Master Tables
+•
+•
+•
+•
+•
+
+Honda Dealer
+Honda Vehicle Model
+Honda Vehicle Variant
+Honda Lead Source
+Honda Lost Reason
+
+New Transactional Tables
+•
+•
+•
+
+Honda CRM Activity
+Honda Opportunity Status Entry
+Honda Test Drive Booking — introduce the table in Part 1, with full scheduling logic
+in Part 2
+
+Core Part 1 Flow
+1 Create Contact
+2 → Check Duplicate Mobile/Email
+3 → Assign Salesperson
+4 → Create Opportunity
+5 → Select Sales Cycle
+6 → Activate First Stage
+7 → Add Vehicle Interest
+8 → Create Follow-up Activity
+9 → View Opportunity and Activity History
+This directly reflects the manual’s Contact → Opportunity → Activate First Stage sequence.
+[Future Mot...s Manual 2 | Word]
+
+Revised Part 2 Direction
+Part 2 should add:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+CRM Setup
+No. Series
+Test-drive scheduling
+Activity completion
+Opportunity stage validations
+Win/loss process
+FlowFields
+Role Center cues
+Integration events
+Pipeline reports
+
+•
+•
+
+Permission sets
+Automated AL tests
+
+Recommended FlowFields
+On the Contact:
+•
+•
+•
+•
+•
+
+Open Opportunity Count
+Won Opportunity Count
+Open Activity Count
+Overdue Activity Count
+Test Drive Count
+
+On the Opportunity:
+•
+•
+•
+•
+•
+
+Activity Count
+Open Activity Count
+Test Drive Count
+Completed Test Drive Count
+Days Since Last Interaction
+
+Role Center Cues
+•
+•
+•
+•
+•
+•
+•
+•
+
+My New Contacts
+My Open Opportunities
+My Follow-ups Today
+My Overdue Follow-ups
+My Test Drives Today
+Unassigned Contacts
+Opportunities Expected This Month
+Lost Opportunities This Month
+
+Reports
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+
+Lead and Contact Source Analysis
+Opportunity Pipeline
+Salesperson Follow-up Performance
+Test Drive Schedule
+Lost Opportunity Analysis
+Model Interest Analysis
+Dealer-wise CRM Performance
+
+Important Improvement: Separate CRM Stage from
+Sales Documents
+The manual transitions from Opportunity into Vehicle Sales Quote, Memo, Order, Invoice,
+and Delivery. [Future Mot...s Manual 2 | Word]
+For your project, that integration should eventually look like:
+1 CRM Opportunity
+2
+↓ Win / Ready for Quotation
+3 Create Vehicle Sales Quote
+4
+↓
+5 Standard/custom sales process
+The Opportunity should not contain all sales-document fields. Finance, payment, tax,
+discount, VIN, inventory allocation, invoice, and shipment details belong to the
+quotation/order process.
+CRM should retain references:
+•
+•
+•
+•
+•
+•
+
+Created Quote No.
+Created Order No.
+Customer No.
+Selected Vehicle/VIN
+Won Date
+Final Deal Value
+
+That separation prevents the CRM table from becoming a large duplicate of the Sales
+Header.
+
+Features from the Manual to Reserve for Later Parts
+Part 3 — Quote Conversion
+•
+•
+•
+•
+•
+•
+•
+
+Create vehicle sales quote from won opportunity
+Copy contact/customer details
+Copy model and variant
+Finance requirement
+Payment mode
+Insurance and accessories
+Link quote back to opportunity
+
+Part 4 — Vehicle Delivery
+•
+•
+•
+•
+•
+•
+
+Delivery checklist
+PDI completion
+Document handover
+Actual delivery date
+Vehicle/customer association
+Delivery posting and history
+
+The documented checklist includes service manual, operator manual, blue book, insurance
+book, PDI, test-drive and actual-delivery information. [Future Mot...s Manual 2 | Word]
+
+Part 5 — Service CRM
+•
+•
+•
+•
+•
+•
+•
+•
+
+Service booking
+Vehicle lookup by VIN or registration
+Booking conversion to service order
+Complaint capture
+Technician assignment
+Parts requisition
+Service feedback
+Complaint follow-up
+
+These processes are already extensively represented in the manual and should remain
+separate from the sales CRM foundation. [Future Mot...s Manual 2 | Word]
+
+Process Manual Quality Observations
+Before treating this file as a formal functional-requirement specification, it needs cleanup.
+
+Current Strengths
+•
+•
+•
+•
+•
+•
+•
+
+Covers the full automotive ERP lifecycle
+Contains actual Business Central screens
+Shows real user navigation
+Captures sales, delivery and after-sales processes
+Identifies many operational fields
+Includes reports and posted-history areas
+Demonstrates standard and custom BC functionality [Future Mot...s Manual 2 |
+Word]
+
+Current Gaps
+The document mostly explains how users click through the system, but it does not
+consistently document:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Business purpose
+Preconditions
+Mandatory fields
+Field source
+Validation rule
+Status transition
+Approval rule
+Permission requirement
+Failure scenario
+Integration point
+Posting impact
+Triggered event
+Record created or modified
+Acceptance criteria
+
+For development purposes, every feature should be rewritten in this format:
+1 Process ID:
+2 Process Name:
+3 Business Purpose:
+4 Actor:
+5 Preconditions:
+6 Input Records:
+7 Steps:
+8 Mandatory Fields:
+9 Validations:
+10 Status Changes:
+11 Records Created:
+12 Records Updated:
+13 Posting Impact:
+14 Permissions:
+15 Error Scenarios:
+16 Reports:
+17 Integration Events:
+18 Acceptance Criteria:
+
+One Important Correction to Our Earlier Design
+Previously, I proposed a separate Honda CRM Lead table. After reviewing this process
+manual, a better learning design is:
+1 Contact = prospect/lead identity
+2 Opportunity = potential vehicle sale
+3 Activity/Interaction = follow-up work
+4 Customer = converted commercial entity
+This is closer to the existing implementation and teaches you how to extend Business
+Central rather than rebuild its CRM model unnecessarily.
+A custom Lead table is justified only if the company needs a separate unqualified inbox
+before creating a standard Contact—for example, raw website leads that must be
+deduplicated, cleaned, assigned, and accepted first.
+A more advanced future design could be:
+1 Raw Lead Inbox
+2 → Validate and Deduplicate
+3 → Accept
+4 → Create/Link Standard Contact
+5 → Create Opportunity
+But that should not be Part 1.
+
+Immediate Next Deliverable
+The strongest next step is to turn the manual and our analysis into a clean Honda/Future
+Motors CRM Part 1 and Part 2 task specification, matching the exact teaching style of your
+Student Management assignments:
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+Object-by-object definitions
+Exact fields and data types
+Enums
+Table extensions
+Pages and page extensions
+Codeunits
+Actions
+Validation rules
+Status transitions
+Integration events
+Reports
+Test scenarios
+
+•
+•
+
+Concept-check questions
+Submission instructions
+
+The uploaded manual gives us enough evidence to make that specification realistic while
+keeping confidential implementation details out of the learning repository.
+
+
